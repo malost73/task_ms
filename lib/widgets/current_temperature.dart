@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:task_ms/models/weather_forecast_daily.dart';
 
-import '../models/weather_forecast_daily.dart';
+class CurrentTemperature extends StatelessWidget {
+  final WeatherForecast weatherForecast;
 
-class TempView extends StatelessWidget {
-  final AsyncSnapshot<WeatherForecast> snapshot;
-
-  const TempView({Key? key, required this.snapshot}) : super(key: key);
+  const CurrentTemperature({Key? key, required this.weatherForecast})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var forecastList = snapshot.data?.list;
+    var forecastList = weatherForecast.list;
     var icon = forecastList?[0].getIconUrl();
     var temp = forecastList?[0].temp.day.toStringAsFixed(0);
     var description = forecastList?[0].weather[0].description.toUpperCase();

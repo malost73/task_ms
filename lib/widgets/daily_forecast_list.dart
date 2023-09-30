@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:task_ms/models/weather_forecast_daily.dart';
-import 'package:task_ms/widgets/forecast_card.dart';
+import 'package:task_ms/widgets/daily_forecast_card.dart';
 
-class BottomListView extends StatelessWidget {
-  final AsyncSnapshot<WeatherForecast> snapshot;
+class DailyForecastList extends StatelessWidget {
+  final WeatherForecast weatherForecast;
 
-  const BottomListView({Key? key, required this.snapshot}) : super(key: key);
+  const DailyForecastList({Key? key, required this.weatherForecast})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +27,13 @@ class BottomListView extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const SizedBox(height: 8),
-            itemCount: snapshot.data!.list!.length,
+            itemCount: weatherForecast.list!.length,
             itemBuilder: (context, index) => ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
-                width: MediaQuery.of(context).size.width / 2.7,
-                color: Colors.black26,
-                child: forecastCard(snapshot, index),
+                padding: const EdgeInsets.all(3),
+                color: const Color(0xFF343434),
+                child: dailyForecastCard(weatherForecast, index),
               ),
             ),
           ),

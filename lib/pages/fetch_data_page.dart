@@ -36,6 +36,7 @@ class _FetchDataPageState extends State<FetchDataPage> {
     var weatherForecast = await getWeatherInfo();
     if (weatherForecast != null) {
       await SharedPreferenceCity().setCityName(weatherForecast.city.name);
+      await SharedPreferenceCity().setListCityName([weatherForecast.city.name]);
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
         return WeatherForecastPage(weatherForecast: weatherForecast);
       }));
