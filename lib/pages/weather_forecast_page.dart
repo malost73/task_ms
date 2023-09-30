@@ -7,9 +7,9 @@ import 'package:task_ms/widgets/detail_view.dart';
 import 'package:task_ms/widgets/temp_view.dart';
 
 class WeatherForecastPage extends StatefulWidget {
-  final WeatherForecast? locationWeather;
+  final WeatherForecast? weatherForecast;
 
-  const WeatherForecastPage({Key? key, this.locationWeather}) : super(key: key);
+  const WeatherForecastPage({Key? key, this.weatherForecast}) : super(key: key);
 
   @override
   _WeatherForecastPageState createState() => _WeatherForecastPageState();
@@ -18,17 +18,17 @@ class WeatherForecastPage extends StatefulWidget {
 class _WeatherForecastPageState extends State<WeatherForecastPage> {
   late Future<WeatherForecast> forecastObject;
 
-  late WeatherForecast weatherForecast;
   late String cityName;
   late String title;
 
   @override
   void initState() {
     super.initState();
-    if (widget.locationWeather != null) {
+    cityName = '';
+    if (widget.weatherForecast != null) {
       title =
-          '${widget.locationWeather?.city.name}, ${widget.locationWeather?.city.country}';
-      forecastObject = Future.value(widget.locationWeather);
+          '${widget.weatherForecast?.city.name}, ${widget.weatherForecast?.city.country}';
+      forecastObject = Future.value(widget.weatherForecast);
     }
   }
 
@@ -42,7 +42,7 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
           style: const TextStyle(fontSize: 20),
         ),
         // backgroundColor: Colors.transparent,
-        backgroundColor: Color(0xFF2C6996),
+        backgroundColor: const Color(0xFF2C6996),
         elevation: 0,
         centerTitle: true,
         automaticallyImplyLeading: false,
@@ -51,8 +51,10 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
           onPressed: () async {
             var test = await WeatherApi().fetchWeatherForecast();
             setState(() {
-              title = '${test.city.name}, ${test.city.country}';
-              forecastObject = WeatherApi().fetchWeatherForecast();
+              if (test != null) {
+                title = '${test.city.name}, ${test.city.country}';
+                forecastObject = Future.value(test);
+              }
             });
           },
         ),
@@ -60,23 +62,25 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
           IconButton(
             icon: const Icon(Icons.location_city),
             onPressed: () async {
-              var tappedName = await Navigator.push(context,
+              var weatherInfo = await Navigator.push(context,
                   MaterialPageRoute(builder: (context) {
                 return const CityPage();
               }));
 
-              if (tappedName != null) {
-                cityName = tappedName.toString().trim();
-                var test = await WeatherApi()
-                    .fetchWeatherForecast(city: cityName, isCity: true);
+              if (weatherInfo != null) {
                 setState(() {
-                  title = '${test.city.name}, ${test.city.country}';
-                  forecastObject = WeatherApi()
-                      .fetchWeatherForecast(city: cityName, isCity: true);
+                  title =
+                      '${weatherInfo.city.name}, ${weatherInfo.city.country}';
+                  forecastObject = Future.value(weatherInfo);
                 });
               } else {
+                var test =
+                    await WeatherApi().fetchWeatherForecast(city: cityName);
+
                 setState(() {
-                  forecastObject = WeatherApi().fetchWeatherForecast();
+                  if (test != null) {
+                    forecastObject = Future.value(test);
+                  }
                 });
               }
             },
@@ -92,7 +96,7 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
   Widget futureBuilderData() {
     return FutureBuilder<WeatherForecast>(
       future: forecastObject,
-      builder: (context, snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<WeatherForecast> snapshot) {
         if (!snapshot.hasError &&
             snapshot.connectionState == ConnectionState.done) {
           if (snapshot.data != null) {

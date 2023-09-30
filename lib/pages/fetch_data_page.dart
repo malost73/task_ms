@@ -1,7 +1,6 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:task_ms/api/weather_api.dart';
+import 'package:task_ms/models/weather_forecast_daily.dart';
 import 'package:task_ms/pages/city_page.dart';
 import 'package:task_ms/pages/weather_forecast_page.dart';
 import 'package:task_ms/utilities/shared_preference.dart';
@@ -14,41 +13,46 @@ class FetchDataPage extends StatefulWidget {
 }
 
 class _FetchDataPageState extends State<FetchDataPage> {
-  void getLocationData() async {
-    try {
-      var cityName = await SharedPreferenceCity().getCityName();
-      if (cityName == null) {
-        var tappedName =
-            await Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return const CityPage();
-        }));
-        if (tappedName != null) {
-          cityName = tappedName.toString().trim();
-          await SharedPreferenceCity().setCityName(cityName);
-        }
-      }
-      var weatherInfo =
-          await WeatherApi().fetchWeatherForecast(city: cityName, isCity: true);
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-        return WeatherForecastPage(locationWeather: weatherInfo);
+  Future<String?> getSharedPreferenceCity() async {
+    String? cityName = await SharedPreferenceCity().getCityName();
+    return cityName;
+  }
+
+  Future<WeatherForecast?> getWeatherInfo() async {
+    var cityName = await getSharedPreferenceCity();
+    WeatherForecast? weatherInfo;
+    if (cityName != null) {
+      weatherInfo = await WeatherApi().fetchWeatherForecast(city: cityName);
+    } else {
+      weatherInfo =
+          await Navigator.push(context, MaterialPageRoute(builder: (context) {
+        return const CityPage();
       }));
-    } catch (e) {
-      // print('$e');
-      log('$e');
+    }
+    return weatherInfo;
+  }
+
+  Future<void> getWeatherData() async {
+    var weatherForecast = await getWeatherInfo();
+    if (weatherForecast != null) {
+      await SharedPreferenceCity().setCityName(weatherForecast.city.name);
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+        return WeatherForecastPage(weatherForecast: weatherForecast);
+      }));
     }
   }
 
   @override
   void initState() {
     super.initState();
-    getLocationData();
+    getWeatherData();
   }
 
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: SpinKitDoubleBounce(color: Colors.blue),
+        child: CircularProgressIndicator(),
       ),
     );
   }

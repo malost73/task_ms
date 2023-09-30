@@ -7,15 +7,10 @@ import 'package:task_ms/utilities/constants.dart';
 import 'package:task_ms/utilities/location.dart';
 
 class WeatherApi {
-  Future<WeatherForecast> fetchWeatherForecast(
-      {String? city, bool? isCity}) async {
-    LocationPermission permission;
-    permission = await Geolocator.requestPermission();
-    Location location = Location();
-    await location.getCurrentLocation();
+  Future<WeatherForecast?> fetchWeatherForecast({String? city}) async {
     Map<String, String?> parameters;
 
-    if (isCity == true) {
+    if (city != null) {
       var params = {
         'appid': Constants.WEATHER_APP_ID,
         'lang': Constants.WEATHER_LANG,
@@ -24,6 +19,10 @@ class WeatherApi {
       };
       parameters = params;
     } else {
+      LocationPermission permission;
+      permission = await Geolocator.requestPermission();
+      Location location = Location();
+      await location.getCurrentLocation();
       var params = {
         'appid': Constants.WEATHER_APP_ID,
         'lang': Constants.WEATHER_LANG,
@@ -44,7 +43,7 @@ class WeatherApi {
     if (response.statusCode == 200) {
       return WeatherForecast.fromJson(json.decode(response.body));
     } else {
-      return Future.error('Error response');
+      return null;
     }
   }
 }
