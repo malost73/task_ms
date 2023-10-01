@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task_ms/models/weather_forecast_daily.dart';
+import 'package:task_ms/models/weather_forecast.dart';
+import 'package:task_ms/utilities/constants.dart';
 import 'package:task_ms/widgets/daily_forecast_card.dart';
 
 class DailyForecastList extends StatelessWidget {
@@ -16,7 +17,7 @@ class DailyForecastList extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: const Text(
-            'Прогноз на 7 дней',
+            Strings.weekForecast,
             textAlign: TextAlign.start,
             style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
           ),
@@ -32,8 +33,9 @@ class DailyForecastList extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: Container(
                 padding: const EdgeInsets.all(3),
-                color: const Color(0xFF343434),
-                child: dailyForecastCard(weatherForecast, index),
+                color: ProjectColors.widgetComponent,
+                child: DailyForecastCard(
+                    weatherForecast: weatherForecast, index: index),
               ),
             ),
           ),

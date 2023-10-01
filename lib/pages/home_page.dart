@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task_ms/utilities/check_saved_city.dart';
 import 'package:task_ms/api/weather_api.dart';
-import 'package:task_ms/models/weather_forecast_daily.dart';
+import 'package:task_ms/models/weather_forecast.dart';
 import 'package:task_ms/pages/city_page.dart';
 import 'package:task_ms/pages/weather_forecast_page.dart';
 import 'package:task_ms/utilities/shared_preference.dart';

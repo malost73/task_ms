@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
-import 'package:task_ms/models/weather_forecast_daily.dart';
+import 'package:task_ms/models/weather_forecast.dart';
 import 'package:task_ms/utilities/constants.dart';
-import 'package:task_ms/utilities/location.dart';
+import 'package:task_ms/utilities/location_definition.dart';
 
 class WeatherApi {
   Future<WeatherForecast?> fetchWeatherForecast({String? city}) async {
@@ -12,8 +12,8 @@ class WeatherApi {
 
     if (city != null) {
       var params = {
-        'appid': Constants.WEATHER_APP_ID,
-        'lang': Constants.WEATHER_LANG,
+        'appid': Strings.WEATHER_APP_ID,
+        'lang': Strings.WEATHER_LANG,
         'units': 'metric',
         'q': city
       };
@@ -24,8 +24,8 @@ class WeatherApi {
       Location location = Location();
       await location.getCurrentLocation();
       var params = {
-        'appid': Constants.WEATHER_APP_ID,
-        'lang': Constants.WEATHER_LANG,
+        'appid': Strings.WEATHER_APP_ID,
+        'lang': Strings.WEATHER_LANG,
         'units': 'metric',
         'lat': location.latitude.toString(),
         'lon': location.longitude.toString(),
@@ -33,8 +33,8 @@ class WeatherApi {
       parameters = params;
     }
 
-    var uri = Uri.https(Constants.WEATHER_BASE_URL_DOMAIN,
-        Constants.WEATHER_FORECAST_PATH, parameters);
+    var uri = Uri.https(Strings.WEATHER_BASE_URL_DOMAIN,
+        Strings.WEATHER_FORECAST_PATH, parameters);
     log('request: ${uri.toString()}');
 
     var response = await http.get(uri);

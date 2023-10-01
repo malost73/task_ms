@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:task_ms/models/weather_forecast_daily.dart';
+import 'package:task_ms/models/weather_forecast.dart';
 import 'package:task_ms/utilities/forecast_util.dart';
 
 class CurrentWeatherDetail extends StatelessWidget {
@@ -19,10 +19,10 @@ class CurrentWeatherDetail extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
-        Util.getItem(FontAwesomeIcons.thermometerThreeQuarters,
+        ForecastUtil.getItem(FontAwesomeIcons.thermometerThreeQuarters,
             pressure.round(), 'mm Hg'),
-        Util.getItem(FontAwesomeIcons.cloudRain, humidity, '%'),
-        Util.getItem(FontAwesomeIcons.wind, wind.toInt(), 'm/s'),
+        ForecastUtil.getItem(FontAwesomeIcons.cloudRain, humidity, '%'),
+        ForecastUtil.getItem(FontAwesomeIcons.wind, wind.toInt(), 'm/s'),
       ],
     );
   }

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:task_ms/models/return_parametrs.dart';
-import 'package:task_ms/models/weather_forecast_daily.dart';
+import 'package:task_ms/models/weather_forecast.dart';
 import 'package:task_ms/pages/city_page.dart';
+import 'package:task_ms/utilities/constants.dart';
+import 'package:task_ms/utilities/get_saved_cities.dart';
 import 'package:task_ms/utilities/shared_preference.dart';
-import 'package:task_ms/widgets/saved_cities_list.dart';
 import 'package:task_ms/widgets/weather_forecast_view.dart';
 
 class WeatherForecastPage extends StatefulWidget {
@@ -47,7 +47,7 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
             fit: BoxFit.fitWidth,
             child: Text(title),
           ),
-          backgroundColor: const Color(0xFF3E88CC),
+          backgroundColor: ProjectColors.containerCurrentTemp,
           elevation: 0,
           centerTitle: true,
           automaticallyImplyLeading: false,
@@ -57,15 +57,13 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
                 : const Icon(Icons.star_border),
             onPressed: () async {
               List<String> savedCitiesList =
-                  await SavedCitiesList().getSharedPreferenceCity();
+                  await GetSavedCities().getSharedPreferenceCity();
               if (checkSavedCity) {
                 savedCitiesList.remove(weatherForecast.city.name);
                 await SharedPreferenceCity().setListCityName(savedCitiesList);
-                // print(savedCitiesList);
               } else {
                 savedCitiesList.add(weatherForecast.city.name);
                 await SharedPreferenceCity().setListCityName(savedCitiesList);
-                // print(savedCitiesList);
               }
               setState(() {
                 checkSavedCity = !checkSavedCity;
@@ -76,8 +74,8 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
             IconButton(
               icon: const Icon(Icons.location_city),
               onPressed: () async {
-                ReturnParameters returnParameters = await Navigator.push(
-                    context, MaterialPageRoute(builder: (context) {
+                var returnParameters = await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) {
                   return const CityPage();
                 }));
                 if (returnParameters != null) {
@@ -92,6 +90,6 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
             ),
           ],
         ),
-        body: weatherForecastView(weatherForecast));
+        body: WeatherForecastView(weatherForecast: weatherForecast));
   }
 }

@@ -1,4 +1,4 @@
-import 'package:task_ms/models/weather_forecast_daily.dart';
+import 'package:task_ms/models/weather_forecast.dart';
 import 'package:task_ms/utilities/shared_preference.dart';
 
 class CheckSavedCity {

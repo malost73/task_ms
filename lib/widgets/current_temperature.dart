@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_ms/models/weather_forecast_daily.dart';
+import 'package:task_ms/models/weather_forecast.dart';
 
 class CurrentTemperature extends StatelessWidget {
   final WeatherForecast weatherForecast;
@@ -11,7 +11,7 @@ class CurrentTemperature extends StatelessWidget {
   Widget build(BuildContext context) {
     var forecastList = weatherForecast.list;
     var icon = forecastList?[0].getIconUrl();
-    var temp = forecastList?[0].temp.day.toStringAsFixed(0);
+    var temp = forecastList?[0].temperature.day.toStringAsFixed(0);
     var description = forecastList?[0].weather[0].description.toUpperCase();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,

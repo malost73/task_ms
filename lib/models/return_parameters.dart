@@ -1,4 +1,4 @@
-import 'package:task_ms/models/weather_forecast_daily.dart';
+import 'package:task_ms/models/weather_forecast.dart';
 
 class ReturnParameters{
   final WeatherForecast weatherForecast;

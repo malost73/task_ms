@@ -1,5 +1,6 @@
-class Constants {
-  // d3896996f301fff8d7efe79798577336
+import 'package:flutter/material.dart';
+
+class Strings {
   static const String WEATHER_APP_ID = '1369dd6b5ae78fc9952261ab9aa236b4';
   static const String WEATHER_LANG = 'ru';
   static const String WEATHER_BASE_SCHEME = 'https://';
@@ -8,4 +9,18 @@ class Constants {
   static const String WEATHER_IMAGES_PATH = '/img/w/';
   static const String WEATHER_IMAGES_URL =
       WEATHER_BASE_SCHEME + WEATHER_BASE_URL_DOMAIN + WEATHER_IMAGES_PATH;
+
+  static const String locationError =
+      'Местоположение не найдено.\nПожалуйста проверьте данные.';
+
+  static const String titleCityPage = 'Мои города';
+  static const String hintSearchField = ' Город или район';
+  static const String myLocation = 'Моё местоположение';
+  static const String weekForecast = 'Прогноз на 7 дней';
+}
+
+class ProjectColors {
+  static const Color widgetComponent = Color(0xFF343434);
+  static const Color hintText = Colors.grey;
+  static const Color containerCurrentTemp = Color(0xFF3E88CC);
 }
