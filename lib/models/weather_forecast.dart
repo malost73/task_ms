@@ -1,43 +1,43 @@
-import 'package:task_ms/models/city.dart';
-import 'package:task_ms/models/weather_list.dart';
+import 'package:task_ms/models/current_forecast.dart';
+import 'package:task_ms/models/daily_forecast.dart';
+import 'package:task_ms/models/hourly_forecast.dart';
 
 class WeatherForecast {
-  late City city;
-  late String cod;
-  late double message;
-  late int cnt;
-  List<WeatherList>? list;
+  double? lat;
+  double? lon;
+  String? timezone;
+  int? timezoneOffset;
+  Current? current;
+  List<Hourly>? hourly;
+  List<Daily>? daily;
 
-  WeatherForecast({
-    required this.city,
-    required this.cod,
-    required this.message,
-    required this.cnt,
-    this.list,
-  });
+  WeatherForecast(
+      {this.lat,
+      this.lon,
+      this.timezone,
+      this.timezoneOffset,
+      this.current,
+      this.hourly,
+      this.daily});
 
   WeatherForecast.fromJson(Map<String, dynamic> json) {
-    city = (json['city'] != null ? City.fromJson(json['city']) : null) as City;
-    cod = json['cod'];
-    message = json['message'];
-    cnt = json['cnt'];
-    if (json['list'] != null) {
-      list = [];
-      json['list'].forEach((v) {
-        list?.add(WeatherList.fromJson(v));
+    lat = json['lat'].toDouble();
+    lon = json['lon'].toDouble();
+    timezone = json['timezone'];
+    timezoneOffset = json['timezone_offset'];
+    current =
+        json['current'] != null ? Current.fromJson(json['current']) : null;
+    if (json['hourly'] != null) {
+      hourly = <Hourly>[];
+      json['hourly'].forEach((v) {
+        hourly!.add(Hourly.fromJson(v));
       });
     }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['city'] = city.toJson();
-    data['cod'] = cod;
-    data['message'] = message;
-    data['cnt'] = cnt;
-    if (list != null) {
-      data['list'] = list?.map((v) => v.toJson()).toList();
+    if (json['daily'] != null) {
+      daily = <Daily>[];
+      json['daily'].forEach((v) {
+        daily!.add(Daily.fromJson(v));
+      });
     }
-    return data;
   }
 }

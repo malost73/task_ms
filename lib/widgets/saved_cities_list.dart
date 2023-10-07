@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_ms/utilities/constants.dart';
-import 'package:task_ms/utilities/get_saved_cities.dart';
+import 'package:task_ms/utilities/shared_preference.dart';
 
 class SavedCitiesList extends StatelessWidget {
   final Function onTap;
@@ -10,11 +10,12 @@ class SavedCitiesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: GetSavedCities().getSharedPreferenceCity(),
-      builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+      future: SharedPreferenceCity().getListCityInfo(),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<Map<String, dynamic>>> snapshot) {
         if (!snapshot.hasError && snapshot.hasData) {
           if (snapshot.data!.isNotEmpty) {
-            final List<String> cityNameList = snapshot.data!;
+            final List<Map<String, dynamic>> cityNameList = snapshot.data!;
             return ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -31,7 +32,7 @@ class SavedCitiesList extends StatelessWidget {
                       child: ListTile(
                         onTap: () => onTap(cityNameList[index]),
                         title: Text(
-                          cityNameList[index],
+                          cityNameList[index]['name'],
                         ),
                       ),
                     ),

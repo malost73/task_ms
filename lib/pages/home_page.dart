@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:task_ms/utilities/check_saved_city.dart';
-import 'package:task_ms/api/weather_api.dart';
-import 'package:task_ms/models/weather_forecast.dart';
+import 'package:task_ms/models/city_info.dart';
+import 'package:task_ms/models/coordinates.dart';
 import 'package:task_ms/pages/city_page.dart';
 import 'package:task_ms/pages/weather_forecast_page.dart';
+import 'package:task_ms/utilities/check_saved_city.dart';
 import 'package:task_ms/utilities/shared_preference.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,17 +20,18 @@ class _HomePageState extends State<HomePage> {
     checkSavedCity();
   }
 
-  Future<void> checkSavedCity()  async {
-    String? cityName = await SharedPreferenceCity().getCityName();
-    if (cityName == null) {
+  Future<void> checkSavedCity() async {
+    var cityList = await SharedPreferenceCity().getListCityInfo();
+    if (cityList.isEmpty) {
       navigatorCityPage();
     } else {
-      var weatherInfo = await WeatherApi().fetchWeatherForecast(city: cityName);
-      if (weatherInfo != null) {
-        bool checkSavedCity =
-            await CheckSavedCity().checkSavedCity(weatherInfo);
-        navigatorWeatherForecastPage(weatherInfo, checkSavedCity);
-      }
+      var cityInfo = cityList[0];
+      double lat = cityInfo['lat'];
+      double lon = cityInfo['lon'];
+      String name = cityInfo['name'];
+      var saved = await CheckSavedCity()
+          .checkSavedCity(Coordinates(lat: lat, lon: lon));
+      navigatorWeatherForecastPage(name, lat.toString(), lon.toString(), saved);
     }
   }
 
@@ -41,11 +42,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   void navigatorWeatherForecastPage(
-      WeatherForecast weatherForecast, bool checkSavedCity) {
+      String name, String lat, String lon, bool saved) {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return WeatherForecastPage(
-        weatherInfo: weatherForecast,
-        checkSavedCity: checkSavedCity,
+        cityInfo: CityInfo(name: name, lat: lat, lon: lon, saved: saved),
       );
     }));
   }

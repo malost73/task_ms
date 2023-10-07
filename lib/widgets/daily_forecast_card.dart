@@ -13,14 +13,14 @@ class DailyForecastCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var forecastList = weatherForecast.list;
+    var forecastList = weatherForecast.daily;
     var dayOfWeek = '';
     DateTime date =
-        DateTime.fromMillisecondsSinceEpoch(forecastList![index].dt * 1000);
+        DateTime.fromMillisecondsSinceEpoch(forecastList![index].dt! * 1000);
     var fullDate = ForecastUtil.getFormattedDate(date);
-    dayOfWeek = fullDate.split(',')[0]; // Tue
-    var tempMax = forecastList[index].temperature.max.toStringAsFixed(0);
-    var tempMin = forecastList[index].temperature.min.toStringAsFixed(0);
+    dayOfWeek = '${fullDate.split(',')[0]}, ${fullDate.split(',')[1]}';
+    var tempMax = forecastList[index].temp!.max.toStringAsFixed(0);
+    var tempMin = forecastList[index].temp!.min.toStringAsFixed(0);
     var icon = forecastList[index].getIconUrl();
     return Column(
       children: <Widget>[

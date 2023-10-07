@@ -9,10 +9,10 @@ class CurrentTemperature extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var forecastList = weatherForecast.list;
-    var icon = forecastList?[0].getIconUrl();
-    var temp = forecastList?[0].temperature.day.toStringAsFixed(0);
-    var description = forecastList?[0].weather[0].description.toUpperCase();
+    var forecastList = weatherForecast.current;
+    var icon = forecastList?.getIconUrl();
+    var temp = forecastList?.temp?.toStringAsFixed(0);
+    var description = forecastList!.weather![0].description.toUpperCase();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,

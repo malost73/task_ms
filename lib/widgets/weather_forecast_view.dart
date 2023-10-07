@@ -4,6 +4,7 @@ import 'package:task_ms/utilities/constants.dart';
 import 'package:task_ms/widgets/current_temperature.dart';
 import 'package:task_ms/widgets/current_weather_detail.dart';
 import 'package:task_ms/widgets/daily_forecast_list.dart';
+import 'package:task_ms/widgets/hourly_forecast_list.dart';
 
 class WeatherForecastView extends StatelessWidget {
   final WeatherForecast weatherForecast;
@@ -24,12 +25,12 @@ class WeatherForecastView extends StatelessWidget {
               child: Container(
                 color: ProjectColors.containerCurrentTemp,
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    const SizedBox(height: 10.0),
                     CurrentTemperature(weatherForecast: weatherForecast),
-                    const SizedBox(height: 50.0),
+                    const SizedBox(height: 20.0),
                     CurrentWeatherDetail(weatherForecast: weatherForecast),
-                    const SizedBox(height: 30.0),
+                    HourlyForecastList(weatherForecast: weatherForecast),
                   ],
                 ),
               ),

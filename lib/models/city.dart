@@ -27,15 +27,4 @@ class City {
     population = json['population'];
     timezone = json['timezone'];
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['coord'] = coordinates.toJson();
-    data['country'] = country;
-    data['population'] = population;
-    data['timezone'] = timezone;
-    return data;
-  }
 }

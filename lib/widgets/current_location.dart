@@ -17,7 +17,7 @@ class CurrentLocation extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(5),
             child: ListTile(
-              onTap: () => onTap(null),
+              onTap: () => onTap(null, null),
               leading: const Icon(Icons.location_on),
               title: const Text(Strings.myLocation),
             ),

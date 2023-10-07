@@ -28,7 +28,7 @@ class DailyForecastList extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const SizedBox(height: 8),
-            itemCount: weatherForecast.list!.length,
+            itemCount: weatherForecast.daily!.length,
             itemBuilder: (context, index) => ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
