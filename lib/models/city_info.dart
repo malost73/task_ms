@@ -4,5 +4,9 @@ class CityInfo {
   final String lon;
   final bool saved;
 
-  CityInfo({required this.name, required this.lat, required this.lon, required this.saved});
+  CityInfo(
+      {required this.name,
+      required this.lat,
+      required this.lon,
+      required this.saved});
 }

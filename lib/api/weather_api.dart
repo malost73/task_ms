@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:task_ms/models/weather_forecast.dart';
 import 'package:task_ms/utilities/constants.dart';
@@ -21,7 +20,6 @@ class WeatherApi {
     var uri = Uri.https(Strings.WEATHER_BASE_URL_DOMAIN,
         Strings.WEATHER_FORECAST_PATH, parameters);
     var response = await http.get(uri);
-    log('response: ${response.body}');
 
     if (response.statusCode == 200) {
       return WeatherForecast.fromJson(json.decode(response.body));

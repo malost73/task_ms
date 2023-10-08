@@ -5,13 +5,12 @@ import 'package:task_ms/pages/search_city_page.dart';
 import 'package:task_ms/pages/weather_forecast_page.dart';
 import 'package:task_ms/utilities/check_saved_city.dart';
 import 'package:task_ms/utilities/constants.dart';
-import 'package:task_ms/utilities/shared_preference.dart';
 import 'package:task_ms/widgets/saved_cities_list.dart';
 
 class CityPage extends StatefulWidget {
-  final bool? isFirstStart;
+  final bool isFirstStart;
 
-  const CityPage({Key? key, this.isFirstStart = false}) : super(key: key);
+  const CityPage({Key? key, required this.isFirstStart}) : super(key: key);
 
   @override
   State<CityPage> createState() => _CityPageState();
@@ -23,28 +22,10 @@ class _CityPageState extends State<CityPage> {
   @override
   void initState() {
     super.initState();
-    if (widget.isFirstStart != null) {
-      _isFirstStart = widget.isFirstStart!;
-    }
-    FocusManager.instance.primaryFocus?.unfocus();
+    _isFirstStart = widget.isFirstStart;
   }
 
-  // navigatorIsFirstStart(WeatherForecast weatherInfo, bool checkSavedCity) {
-  //   if (isFirstStart) {
-  //     SharedPreferenceCity().setCityName(weatherInfo.city.name);
-  //     SharedPreferenceCity().setListCityName([weatherInfo.city.name]);
-  //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-  //       return WeatherForecastPage(
-  //           weatherInfo: weatherInfo, checkSavedCity: true);
-  //     }));
-  //   } else {
-  //     Navigator.pop(context, ReturnParameters(weatherInfo, checkSavedCity));
-  //   }
-  // }
-
-  void onTapFunction(Map<String, dynamic> cityInfo) async {
-    var saved = await CheckSavedCity().checkSavedCity(
-        Coordinates(lat: cityInfo['lat'], lon: cityInfo['lon']));
+  void navigatorWeatherForecastPage(Map<String, dynamic> cityInfo, bool saved) {
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
       return WeatherForecastPage(
           cityInfo: CityInfo(
@@ -53,6 +34,12 @@ class _CityPageState extends State<CityPage> {
               lat: cityInfo['lat'].toString(),
               lon: cityInfo['lon'].toString()));
     }), (route) => false);
+  }
+
+  void onTapFunction(Map<String, dynamic> cityInfo) async {
+    var saved = await CheckSavedCity().checkSavedCity(
+        Coordinates(lat: cityInfo['lat'], lon: cityInfo['lon']));
+    navigatorWeatherForecastPage(cityInfo, saved);
   }
 
   @override
@@ -72,11 +59,6 @@ class _CityPageState extends State<CityPage> {
       ),
       body: ListView(
         children: [
-          // const Divider(
-          //   color: ProjectColors.hintText,
-          // ),
-          // CurrentLocation(
-          //     onTap: (String? lat, String? lon) => onTapFunction(lat, lon)),
           SavedCitiesList(
               onTap: (Map<String, dynamic> info) => onTapFunction(info)),
         ],

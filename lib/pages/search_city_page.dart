@@ -1,18 +1,15 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:task_ms/api/city_name_api.dart';
-import 'package:task_ms/models/city_info.dart';
 import 'package:task_ms/models/city_name.dart';
 import 'package:task_ms/models/city_name_list.dart';
-import 'package:task_ms/models/coordinates.dart';
-import 'package:task_ms/pages/weather_forecast_page.dart';
-import 'package:task_ms/utilities/check_saved_city.dart';
-import 'package:task_ms/utilities/shared_preference.dart';
+import 'package:task_ms/utilities/constants.dart';
+import 'package:task_ms/widgets/search_city_list.dart';
 
 class SearchCityPage extends StatefulWidget {
-  final bool? isFirstStart;
+  final bool isFirstStart;
 
-  const SearchCityPage({Key? key, this.isFirstStart}) : super(key: key);
+  const SearchCityPage({Key? key, required this.isFirstStart})
+      : super(key: key);
 
   @override
   State<SearchCityPage> createState() => _SearchCityState();
@@ -20,18 +17,15 @@ class SearchCityPage extends StatefulWidget {
 
 class _SearchCityState extends State<SearchCityPage> {
   late TextEditingController _textEditingController;
-  late String cityName;
-  late bool isFirstStart;
+  late String _cityName;
+  late bool _isFirstStart;
 
   @override
   void initState() {
     super.initState();
-    cityName = '';
-    if (widget.isFirstStart != null) {
-      isFirstStart = widget.isFirstStart!;
-    }
+    _cityName = '';
+    _isFirstStart = widget.isFirstStart;
     _textEditingController = TextEditingController();
-    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   @override
@@ -40,10 +34,9 @@ class _SearchCityState extends State<SearchCityPage> {
     super.dispose();
   }
 
-  Future<CityNameList?> fetchCityName(String cityName) async {
+  Future<CityNameList?> _fetchCityName(String cityName) async {
     if (cityName.trim() != '') {
       var cityNames = await CityNameApi().fetchCityName(city: cityName);
-
       return cityNames;
     }
     return null;
@@ -58,7 +51,7 @@ class _SearchCityState extends State<SearchCityPage> {
           autofocus: true,
           style: const TextStyle(color: Colors.white),
           decoration: const InputDecoration(
-            hintText: ' Город или район',
+            hintText: Strings.hintSearchField,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(10.0),
@@ -67,16 +60,16 @@ class _SearchCityState extends State<SearchCityPage> {
           ),
           onChanged: (value) {
             setState(() {
-              cityName = value;
+              _cityName = value;
             });
           },
         ),
         actions: [
-          cityName != ''
+          _cityName != ''
               ? IconButton(
                   onPressed: () {
                     setState(() {
-                      cityName = '';
+                      _cityName = '';
                       _textEditingController.clear();
                     });
                   },
@@ -89,62 +82,14 @@ class _SearchCityState extends State<SearchCityPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FutureBuilder(
-            future: fetchCityName(cityName),
+            future: _fetchCityName(_cityName),
             builder:
                 (BuildContext context, AsyncSnapshot<CityNameList?> snapshot) {
               if (snapshot.hasData) {
-                List<CityName>? cityNameList = snapshot.data?.cityName;
-                return Expanded(
-                  child: ListView.builder(
-                    padding: const EdgeInsets.only(top: 10),
-                    itemCount: cityNameList?.length ?? 0,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Card(
-                        child: ListTile(
-                          onTap: () async {
-                            bool saved;
-                            String name = cityNameList![index].localNames?.ru ??
-                                cityNameList[index].name!;
-                            if (isFirstStart) {
-                              // await SharedPreferenceCity().setCityInfo(
-                              //     name,
-                              //     cityNameList[index].lat.toString(),
-                              //     cityNameList[index].lon.toString());
-                              await SharedPreferenceCity().setListCityInfo([
-                                {
-                                  'name': name,
-                                  'lat': cityNameList[index].lat,
-                                  'lon': cityNameList[index].lon
-                                }
-                              ]);
-                              saved = true;
-                            } else {
-                              saved = await CheckSavedCity().checkSavedCity(
-                                  Coordinates(
-                                      lat: cityNameList[index].lat,
-                                      lon: cityNameList[index].lon));
-                            }
-                            Navigator.pushAndRemoveUntil(context,
-                                MaterialPageRoute(builder: (context) {
-                              return WeatherForecastPage(
-                                cityInfo: CityInfo(
-                                    saved: saved,
-                                    name: name,
-                                    lat: cityNameList[index].lat.toString(),
-                                    lon: cityNameList[index].lon.toString()),
-                              );
-                            }), (route) => false);
-                          },
-                          title: Text(cityNameList![index].localNames?.ru ??
-                              cityNameList[index].name!),
-                          subtitle: Text(
-                              '${cityNameList[index].country}, ${cityNameList[index].state}'),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              } else if (cityName == '') {
+                List<CityName> cityNameList = snapshot.data?.cityName ?? [];
+                return SearchCityList(
+                    cityNameList: cityNameList, isFirstStart: _isFirstStart);
+              } else if (_cityName == '') {
                 return Container();
               } else {
                 return const Center(

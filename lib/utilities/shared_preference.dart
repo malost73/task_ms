@@ -1,25 +1,8 @@
 import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferenceCity {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-
-  // Future<Map<String, dynamic>?> getCityInfo() async {
-  //   final SharedPreferences prefs = await _prefs;
-  //   final String? cityInfo = prefs.getString('general_city_info');
-  //   if (cityInfo != null) {
-  //     Map<String, dynamic> cityInfoMap = jsonDecode(cityInfo);
-  //     return cityInfoMap;
-  //   }
-  //   return null;
-  // }
-  //
-  // Future<void> setCityInfo(String name, String lat, String lon) async {
-  //   final SharedPreferences prefs = await _prefs;
-  //   Map<String, dynamic> cityInfo = {'name': name, 'lat': lat, 'lon': lon};
-  //   prefs.setString('general_city_info', jsonEncode(cityInfo));
-  // }
 
   Future<void> setListCityInfo(List<Map<String, dynamic>> listInfo) async {
     final SharedPreferences prefs = await _prefs;

@@ -33,7 +33,7 @@ class CurrentTemperature extends StatelessWidget {
             Row(
               children: <Widget>[
                 Text(
-                  '$description',
+                  description,
                   style: const TextStyle(
                     fontSize: 16.0,
                   ),

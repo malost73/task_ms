@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'package:task_ms/models/city_name_list.dart';
 import 'package:task_ms/utilities/constants.dart';
@@ -14,7 +13,6 @@ class CityNameApi {
     var uri = Uri.https(
         Strings.WEATHER_BASE_URL_DOMAIN, Strings.CITY_NAME_PATH, parameters);
     var response = await http.get(uri);
-    log('response: ${response.body}');
 
     if (response.statusCode == 200) {
       return CityNameList.fromJson(json.decode(response.body));

@@ -17,13 +17,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    checkSavedCity();
+    _checkSavedCity();
   }
 
-  Future<void> checkSavedCity() async {
+  Future<void> _checkSavedCity() async {
     var cityList = await SharedPreferenceCity().getListCityInfo();
     if (cityList.isEmpty) {
-      navigatorCityPage();
+      _navigatorCityPage();
     } else {
       var cityInfo = cityList[0];
       double lat = cityInfo['lat'];
@@ -31,17 +31,18 @@ class _HomePageState extends State<HomePage> {
       String name = cityInfo['name'];
       var saved = await CheckSavedCity()
           .checkSavedCity(Coordinates(lat: lat, lon: lon));
-      navigatorWeatherForecastPage(name, lat.toString(), lon.toString(), saved);
+      _navigatorWeatherForecastPage(
+          name, lat.toString(), lon.toString(), saved);
     }
   }
 
-  void navigatorCityPage() {
+  void _navigatorCityPage() {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return const CityPage(isFirstStart: true);
     }));
   }
 
-  void navigatorWeatherForecastPage(
+  void _navigatorWeatherForecastPage(
       String name, String lat, String lon, bool saved) {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return WeatherForecastPage(
