@@ -1,16 +1,25 @@
 # task_ms
 
-A new Flutter project.
+- Малинин Константин
+- Тестовое задание Flutter
 
-## Getting Started
+## Описание проекта
 
-This project is a starting point for a Flutter application.
+При первом входе пользователь попадает на страницу сохраненных городов. Чтобы выбрать город
+необходимо нажать иконку поиска в AppBar и начать писать название города или района. Затем выбрать
+из списка предложенных местоположений необходимое. Первый город сохраняется автоматически и
+пользователя перенаправляет на страницу погоды выбранного города. Чтобы найти другое местоположение
+или посмотреть список сохраненных городов со страницы погоды, необходимо нажать на иконку города в
+правом верхнем углу AppBar. Чтобы удалить или добавить город в избранное, необходимо со страницы
+погоды нажать на иконку избранного в левом верхнем углу AppBar. При удалении основного города из
+избранного при последующих входах в приложение будет показана погода следующего за ним в списке
+избранных городов. При удалении всего списка сохраненных городов при следующем входе пользователя
+перенаправит на странницу выбора города, как при первом входе.
 
-A few resources to get you started if this is your first Flutter project:
+## Описание, как запустить проект
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Для запуска проекта необходимо установить пакеты из файла pubspec.yaml командой pub get, затем
+выполнить запуск.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Версия dart 2.17.6
+- Версия Flutter 3.0.5
