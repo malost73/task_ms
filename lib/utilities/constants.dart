@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Strings {
-  static const String WEATHER_APP_ID = '1369dd6b5ae78fc9952261ab9aa236b4';
+  static const String WEATHER_APP_ID = '';
   static const String WEATHER_UNITS = 'metric';
   static const String WEATHER_LANG = 'ru';
   static const String WEATHER_EXCLUDE = 'minutely';
