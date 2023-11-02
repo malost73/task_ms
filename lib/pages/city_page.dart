@@ -10,21 +10,13 @@ import 'package:task_ms/widgets/saved_cities_list.dart';
 class CityPage extends StatefulWidget {
   final bool isFirstStart;
 
-  const CityPage({Key? key, required this.isFirstStart}) : super(key: key);
+  const CityPage({super.key, required this.isFirstStart});
 
   @override
   State<CityPage> createState() => _CityPageState();
 }
 
 class _CityPageState extends State<CityPage> {
-  late bool _isFirstStart;
-
-  @override
-  void initState() {
-    super.initState();
-    _isFirstStart = widget.isFirstStart;
-  }
-
   void navigatorWeatherForecastPage(Map<String, dynamic> cityInfo, bool saved) {
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
       return WeatherForecastPage(
@@ -46,15 +38,21 @@ class _CityPageState extends State<CityPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.titleCityPage),
+        title: const Text(Constants.titleCityPage),
         actions: [
           IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return SearchCityPage(isFirstStart: _isFirstStart);
-                }));
-              }),
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return SearchCityPage(isFirstStart: widget.isFirstStart);
+                  },
+                ),
+              );
+            },
+          ),
         ],
       ),
       body: ListView(

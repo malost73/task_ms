@@ -2,35 +2,24 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:task_ms/models/city_info.dart';
 import 'package:task_ms/pages/city_page.dart';
-import 'package:task_ms/utilities/constants.dart';
+import 'package:task_ms/utilities/constants_colors.dart';
 import 'package:task_ms/utilities/shared_preference.dart';
 import 'package:task_ms/widgets/weather_forecast_builder.dart';
 
 class WeatherForecastPage extends StatefulWidget {
   final CityInfo cityInfo;
 
-  const WeatherForecastPage({Key? key, required this.cityInfo})
-      : super(key: key);
+  const WeatherForecastPage({super.key, required this.cityInfo});
 
   @override
   State<WeatherForecastPage> createState() => _WeatherForecastPageState();
 }
 
 class _WeatherForecastPageState extends State<WeatherForecastPage> {
-  late bool _checkSavedCity;
-  late String _lat;
-  late String _lon;
-  late String _name;
-  String _title = '';
-
-  @override
-  void initState() {
-    _title = _name = widget.cityInfo.name;
-    _lat = widget.cityInfo.lat;
-    _lon = widget.cityInfo.lon;
-    _checkSavedCity = widget.cityInfo.saved;
-    super.initState();
-  }
+  late bool _checkSavedCity = widget.cityInfo.saved;
+  late String _lat = widget.cityInfo.lat;
+  late String _lon = widget.cityInfo.lon;
+  late String _name = widget.cityInfo.name;
 
   void onPressedFunction() async {
     List<Map<String, dynamic>> savedCitiesList =
@@ -66,7 +55,7 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
         excludeHeaderSemantics: true,
         title: FittedBox(
           fit: BoxFit.fitWidth,
-          child: Text(_title),
+          child: Text(_name),
         ),
         backgroundColor: ProjectColors.containerCurrentTemp,
         elevation: 0,
@@ -88,7 +77,7 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
               if (returnParameters != null) {
                 setState(() {
                   _checkSavedCity = returnParameters.saved;
-                  _title = _name = returnParameters.name;
+                  _name = returnParameters.name;
                   _lat = returnParameters.lat;
                   _lon = returnParameters.lon;
                 });

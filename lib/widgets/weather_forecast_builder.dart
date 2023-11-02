@@ -7,8 +7,8 @@ class WeatherForecastBuilder extends StatelessWidget {
   final String lat;
   final String lon;
 
-  const WeatherForecastBuilder({Key? key, required this.lat, required this.lon})
-      : super(key: key);
+  const WeatherForecastBuilder(
+      {super.key, required this.lat, required this.lon});
 
   Future<WeatherForecast?> _fetchWeatherForecast(String lat, String lon) async {
     var weatherInfo =
@@ -23,7 +23,11 @@ class WeatherForecastBuilder extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<WeatherForecast?> snapshot) {
         if (snapshot.hasData) {
-          return WeatherForecastView(weatherForecast: snapshot.data!);
+          if (snapshot.data != null) {
+            return WeatherForecastView(weatherForecast: snapshot.data!);
+          } else {
+            return Container();
+          }
         } else if (snapshot.hasError) {
           return Text(snapshot.error.toString());
         } else {

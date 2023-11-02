@@ -1,5 +1,5 @@
+import 'package:task_ms/api/constants_api.dart';
 import 'package:task_ms/models/weather.dart';
-import 'package:task_ms/utilities/constants.dart';
 
 class Hourly {
   int? dt;
@@ -56,6 +56,6 @@ class Hourly {
   }
 
   String getIconUrl() {
-    return '${Strings.WEATHER_IMAGES_URL}${weather![0].icon}.png';
+    return '${ConstantsApi.weatherImagesUrl}${weather![0].icon}.png';
   }
 }

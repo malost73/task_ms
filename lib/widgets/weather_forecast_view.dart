@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_ms/models/weather_forecast.dart';
-import 'package:task_ms/utilities/constants.dart';
+import 'package:task_ms/utilities/constants_colors.dart';
 import 'package:task_ms/widgets/current_temperature.dart';
 import 'package:task_ms/widgets/current_weather_detail.dart';
 import 'package:task_ms/widgets/daily_forecast_list.dart';
@@ -9,8 +9,7 @@ import 'package:task_ms/widgets/hourly_forecast_list.dart';
 class WeatherForecastView extends StatelessWidget {
   final WeatherForecast weatherForecast;
 
-  const WeatherForecastView({Key? key, required this.weatherForecast})
-      : super(key: key);
+  const WeatherForecastView({super.key, required this.weatherForecast});
 
   @override
   Widget build(BuildContext context) {

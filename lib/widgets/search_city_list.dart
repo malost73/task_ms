@@ -7,31 +7,27 @@ import 'package:task_ms/utilities/check_saved_city.dart';
 import 'package:task_ms/utilities/shared_preference.dart';
 
 class SearchCityList extends StatelessWidget {
-  final List<CityName>? cityNameList;
+  final List<CityName> cityNameList;
   final bool isFirstStart;
 
   const SearchCityList(
-      {Key? key, required this.cityNameList, required this.isFirstStart})
-      : super(key: key);
-
-  void navigatorWeatherForecastPage(
-      BuildContext context, bool saved, String name, String lat, String lon) {}
+      {super.key, required this.cityNameList, required this.isFirstStart});
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
         padding: const EdgeInsets.only(top: 10),
-        itemCount: cityNameList?.length ?? 0,
+        itemCount: cityNameList.length,
         itemBuilder: (BuildContext context, int index) {
           return Card(
             child: ListTile(
               onTap: () async {
                 bool saved;
-                String name = cityNameList![index].localNames?.ru ??
-                    cityNameList![index].name!;
-                double? lat = cityNameList![index].lat;
-                double? lon = cityNameList![index].lon;
+                String name = cityNameList[index].localNames?.ru ??
+                    cityNameList[index].name!;
+                double? lat = cityNameList[index].lat;
+                double? lon = cityNameList[index].lon;
                 if (isFirstStart) {
                   await SharedPreferenceCity().setListCityInfo([
                     {'name': name, 'lat': lat, 'lon': lon}
@@ -41,21 +37,23 @@ class SearchCityList extends StatelessWidget {
                   saved = await CheckSavedCity()
                       .checkSavedCity(Coordinates(lat: lat, lon: lon));
                 }
-                Navigator.pushAndRemoveUntil(context,
-                    MaterialPageRoute(builder: (context) {
-                  return WeatherForecastPage(
-                    cityInfo: CityInfo(
-                        saved: saved,
-                        name: name,
-                        lat: lat.toString(),
-                        lon: lon.toString()),
-                  );
-                }), (route) => false);
+                if (context.mounted) {
+                  Navigator.pushAndRemoveUntil(context,
+                      MaterialPageRoute(builder: (context) {
+                    return WeatherForecastPage(
+                      cityInfo: CityInfo(
+                          saved: saved,
+                          name: name,
+                          lat: lat.toString(),
+                          lon: lon.toString()),
+                    );
+                  }), (route) => false);
+                }
               },
-              title: Text(cityNameList![index].localNames?.ru ??
-                  cityNameList![index].name!),
+              title: Text(cityNameList[index].localNames?.ru ??
+                  cityNameList[index].name!),
               subtitle: Text(
-                  '${cityNameList![index].country}, ${cityNameList![index].state}'),
+                  '${cityNameList[index].country}, ${cityNameList[index].state}'),
             ),
           );
         },

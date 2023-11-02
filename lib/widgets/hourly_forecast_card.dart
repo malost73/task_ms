@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_ms/utilities/constants.dart';
 import 'package:task_ms/models/weather_forecast.dart';
 
 class HourlyForecastCard extends StatelessWidget {
@@ -6,14 +7,13 @@ class HourlyForecastCard extends StatelessWidget {
   final int index;
 
   const HourlyForecastCard(
-      {Key? key, required this.weatherForecast, required this.index})
-      : super(key: key);
+      {super.key, required this.weatherForecast, required this.index});
 
   @override
   Widget build(BuildContext context) {
     var forecastList = weatherForecast.hourly;
-    DateTime date =
-        DateTime.fromMillisecondsSinceEpoch(forecastList![index].dt! * 1000);
+    DateTime date = DateTime.fromMillisecondsSinceEpoch(
+        forecastList![index].dt! * Constants.fromMillisecondsSinceEpoch);
     var time = '${date.hour}:00';
     var temp = forecastList[index].temp!.toStringAsFixed(0);
     var icon = forecastList[index].getIconUrl();

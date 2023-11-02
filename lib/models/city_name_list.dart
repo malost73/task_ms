@@ -6,11 +6,9 @@ class CityNameList {
   CityNameList({this.cityName});
 
   CityNameList.fromJson(List<dynamic> json) {
-    if (json != null) {
-      cityName = <CityName>[];
-      json.forEach((v) {
-        cityName!.add(CityName.fromJson(v));
-      });
+    cityName = <CityName>[];
+    for (var v in json) {
+      cityName!.add(CityName.fromJson(v));
     }
   }
 }

@@ -1,11 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:task_ms/models/weather_forecast.dart';
 
 class CurrentTemperature extends StatelessWidget {
   final WeatherForecast weatherForecast;
 
-  const CurrentTemperature({Key? key, required this.weatherForecast})
-      : super(key: key);
+  const CurrentTemperature({super.key, required this.weatherForecast});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,16 @@ class CurrentTemperature extends StatelessWidget {
                     fontSize: 48.0,
                   ),
                 ),
-                Image.network(icon!, scale: 0.7),
+                // Image.network(icon!, scale: 0.7),
+                icon != null
+                    ? CachedNetworkImage(
+                        imageUrl: icon,
+                        placeholder: (context, url) =>
+                            const CircularProgressIndicator(),
+                        errorWidget: (context, url, error) =>
+                            const Icon(Icons.error),
+                      )
+                    : Container(),
               ],
             ),
             Row(

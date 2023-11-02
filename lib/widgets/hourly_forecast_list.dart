@@ -5,8 +5,7 @@ import 'package:task_ms/widgets/hourly_forecast_card.dart';
 class HourlyForecastList extends StatelessWidget {
   final WeatherForecast weatherForecast;
 
-  const HourlyForecastList({Key? key, required this.weatherForecast})
-      : super(key: key);
+  const HourlyForecastList({super.key, required this.weatherForecast});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,5 @@
+import 'package:task_ms/api/constants_api.dart';
 import 'package:task_ms/models/weather.dart';
-import 'package:task_ms/utilities/constants.dart';
 
 class Current {
   int? dt;
@@ -49,7 +49,7 @@ class Current {
     visibility = json['visibility'];
     windSpeed = json['wind_speed'].toDouble();
     windDeg = json['wind_deg'];
-    windGust = json['wind_gust'] != null ? json['wind_gust'].toDouble() : null;
+    windGust = json['wind_gust'];
     if (json['weather'] != null) {
       weather = <Weather>[];
       json['weather'].forEach((v) {
@@ -59,6 +59,6 @@ class Current {
   }
 
   String getIconUrl() {
-    return '${Strings.WEATHER_IMAGES_URL}${weather![0].icon}.png';
+    return '${ConstantsApi.weatherImagesUrl}${weather![0].icon}.png';
   }
 }

@@ -7,7 +7,7 @@ import 'package:task_ms/utilities/check_saved_city.dart';
 import 'package:task_ms/utilities/shared_preference.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -31,8 +31,8 @@ class _HomePageState extends State<HomePage> {
       String name = cityInfo['name'];
       var saved = await CheckSavedCity()
           .checkSavedCity(Coordinates(lat: lat, lon: lon));
-      _navigatorWeatherForecastPage(
-          name, lat.toString(), lon.toString(), saved);
+      _navigatorWeatherForecastPage(CityInfo(
+          name: name, lat: lat.toString(), lon: lon.toString(), saved: saved));
     }
   }
 
@@ -42,11 +42,10 @@ class _HomePageState extends State<HomePage> {
     }));
   }
 
-  void _navigatorWeatherForecastPage(
-      String name, String lat, String lon, bool saved) {
+  void _navigatorWeatherForecastPage(CityInfo cityInfo) {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return WeatherForecastPage(
-        cityInfo: CityInfo(name: name, lat: lat, lon: lon, saved: saved),
+        cityInfo: cityInfo,
       );
     }));
   }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:task_ms/models/weather_forecast.dart';
+import 'package:task_ms/utilities/constants_colors.dart';
 import 'package:task_ms/utilities/constants.dart';
 import 'package:task_ms/widgets/daily_forecast_card.dart';
 
 class DailyForecastList extends StatelessWidget {
   final WeatherForecast weatherForecast;
 
-  const DailyForecastList({Key? key, required this.weatherForecast})
-      : super(key: key);
+  const DailyForecastList({super.key, required this.weatherForecast});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class DailyForecastList extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: const Text(
-            Strings.weekForecast,
+            Constants.weekForecast,
             textAlign: TextAlign.start,
             style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
           ),
