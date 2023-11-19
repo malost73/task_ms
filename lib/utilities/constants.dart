@@ -8,5 +8,7 @@ class Constants {
   static const String weekForecast = 'Прогноз на 7 дней';
   static const double hectopascalToMillimetreOfMercury = 0.75006375542;
   static const int fromMillisecondsSinceEpoch = 1000;
+  static const String serverFailureMessage = 'Server Failure';
+  static const String cachedFailureMessage = 'Cache Failure';
 
 }
