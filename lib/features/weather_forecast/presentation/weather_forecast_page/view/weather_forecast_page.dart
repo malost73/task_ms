@@ -1,16 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:task_ms/models/city_info.dart';
-import 'package:task_ms/pages/city_page.dart';
+import 'package:task_ms/features/weather_forecast/domain/models/city_info_entity.dart';
+// import 'package:task_ms/pages/city_page.dart';
 import 'package:task_ms/utilities/constants_colors.dart';
 import 'package:task_ms/utilities/shared_preference.dart';
-import 'package:task_ms/widgets/weather_forecast_builder.dart';
+// import 'package:task_ms/widgets/weather_forecast_builder.dart';
 
 @RoutePage()
 class WeatherForecastPage extends StatefulWidget {
   final CityInfo cityInfo;
 
+  // const WeatherForecastPage({super.key, required this.cityInfo});
   const WeatherForecastPage({super.key, required this.cityInfo});
 
   @override
@@ -72,23 +73,23 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
           IconButton(
             icon: const Icon(Icons.location_city),
             onPressed: () async {
-              var returnParameters = await Navigator.push(context,
-                  MaterialPageRoute(builder: (context) {
-                return const CityPage(isFirstStart: false);
-              }));
-              if (returnParameters != null) {
-                setState(() {
-                  _checkSavedCity = returnParameters.saved;
-                  _name = returnParameters.name;
-                  _lat = returnParameters.lat;
-                  _lon = returnParameters.lon;
-                });
-              }
+              // var returnParameters = await Navigator.push(context,
+              //     MaterialPageRoute(builder: (context) {
+              //   return const CityPage(isFirstStart: false);
+              // }));
+              // if (returnParameters != null) {
+              //   setState(() {
+              //     _checkSavedCity = returnParameters.saved;
+              //     _name = returnParameters.name;
+              //     _lat = returnParameters.lat;
+              //     _lon = returnParameters.lon;
+              //   });
+              // }
             },
           ),
         ],
       ),
-      body: WeatherForecastBuilder(lat: _lat, lon: _lon),
+      // body: WeatherForecastBuilder(lat: _lat, lon: _lon),
     );
   }
 }

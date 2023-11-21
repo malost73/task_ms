@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:task_ms/features/weather_forecast/domain/models/weather_forecast_model.dart';
+import 'package:task_ms/features/weather_forecast/domain/models/coordinates_entity.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();
@@ -14,13 +14,13 @@ class HomeFirstStartChecking extends HomeState {}
 
 class HomeFirstStart extends HomeState {}
 
-class HomeSavedWeather extends HomeState {
-  final WeatherForecastModel? weatherForecastModel;
+class HomeSavedCityNames extends HomeState {
+  final CoordinatesModel? coordinates;
 
-  const HomeSavedWeather({required this.weatherForecastModel});
+  const HomeSavedCityNames({required this.coordinates});
 
   @override
-  List<Object> get props => [weatherForecastModel ?? 0];
+  List<Object> get props => [coordinates ?? 0];
 }
 
 class HomeError extends HomeState {

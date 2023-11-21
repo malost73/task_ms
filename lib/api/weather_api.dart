@@ -1,7 +1,7 @@
 // import 'dart:convert';
 // import 'package:http/http.dart' as http;
 // import 'package:task_ms/api/constants_api.dart';
-// import 'package:task_ms/models/weather_forecast.dart';
+// import 'package:task_ms/entities/weather_forecast.dart';
 //
 // class WeatherApi {
 //   Future<WeatherForecast?> fetchWeatherForecast(

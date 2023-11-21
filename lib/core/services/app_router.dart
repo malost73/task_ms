@@ -15,8 +15,8 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: SearchCityRoute.page,
         ),
-        AutoRoute(
-          page: WeatherForecastRoute.page,
-        ),
+        // AutoRoute(
+        //   page: WeatherForecastRoute.page,
+        // ),
       ];
 }

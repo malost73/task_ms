@@ -1,7 +1,7 @@
 // import 'dart:convert';
 // import 'package:http/http.dart' as http;
 // import 'package:task_ms/api/constants_api.dart';
-// import 'package:task_ms/models/city_name_list.dart';
+// import 'package:task_ms/entities/city_name_list.dart';
 //
 // class CityNameApi {
 //   Future<CityNameList?> fetchCityName({String? city}) async {
