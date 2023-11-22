@@ -1,14 +1,14 @@
-import 'package:task_ms/features/weather_forecast/data/datasources/local_datasource/models_db/city_name_db/city_name_db.dart';
-import 'package:task_ms/features/weather_forecast/domain/models/city_name_entity.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/local_entities/city_name_db/city_name_db.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
 
 abstract class CityNameLocal {
-  // void addItem(CityNameDTO? cityNameModel);
+  // void addItem(CityNameDTO? cityNameEntity);
 
-  void addItem(CityNameModel cityNameModel);
+  void addItem(CityNameEntity cityNameEntity);
 
-  List<CityNameModel>? getItems();
+  List<CityNameEntity>? getItems();
 
-  CityNameModel? getFirstItem();
+  CityNameEntity? getFirstItem();
 
   void deleteItem(CityNameDB cityNameDB);
 }

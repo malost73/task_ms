@@ -3,12 +3,12 @@ import 'package:dartz/dartz.dart';
 import 'package:task_ms/core/error/exceprion.dart';
 import 'package:task_ms/core/error/failure.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/local_datasource/city_name_local/city_name_local.dart';
-import 'package:task_ms/features/weather_forecast/data/datasources/local_datasource/city_name_local/city_name_local_impl.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/remote_datasource/city_name_list_remote/city_name_list_remote.dart';
-import 'package:task_ms/features/weather_forecast/data/datasources/remote_datasource/city_name_list_remote/city_name_list_remote_impl.dart';
+import 'package:task_ms/features/weather_forecast/data/dtos/city_name_dto/city_name_dto.dart';
 import 'package:task_ms/features/weather_forecast/data/mappers/remote_mappers/city_name_list_mapper.dart';
-import 'package:task_ms/features/weather_forecast/domain/models/city_name_list_entity.dart';
-import 'package:task_ms/features/weather_forecast/domain/models/city_name_entity.dart';
+import 'package:task_ms/features/weather_forecast/data/mappers/remote_mappers/city_name_mapper.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_list_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/repositories/city_name_repository.dart';
 
 // @Injectable(as: WeatherForecastRepository)
@@ -22,20 +22,21 @@ class CityNameRepositoryImpl implements CityNameRepository {
   final CityNameLocal localCityNameList;
 
   @override
-  Future<Either<Failure, CityNameListModel?>> getCityNameList(
+  Future<Either<Failure, List<CityNameEntity>?>> getCityNameList(
       {String? cityName, required bool fromServer}) async {
     if (fromServer) {
       try {
         final remoteForecast =
             await remoteCityNameList.getCityNameList(cityName: cityName);
-        return Right(remoteForecast?.toDomain());
+        return Right(remoteForecast?.map((e) => e.toDomain()).toList());
       } on ServerException {
         return Left(ServerFailure());
       }
     } else {
       try {
-        final List<CityNameModel>? localForecast = localCityNameList.getItems();
-        return Right(CityNameListModel(cityNameList: localForecast));
+        final List<CityNameEntity>? localForecast =
+            localCityNameList.getItems();
+        return Right(localForecast);
       } on CacheException {
         return Left(CacheFailure());
       }
@@ -43,10 +44,10 @@ class CityNameRepositoryImpl implements CityNameRepository {
   }
 
   @override
-  Future<Either<Failure, CityNameModel?>> getFirstCityName() async {
+  Future<Either<Failure, CityNameEntity?>> getFirstCityName() async {
     try {
-      final CityNameModel? cityNameModel = localCityNameList.getFirstItem();
-      return Right(cityNameModel);
+      final CityNameEntity? cityNameEntity = localCityNameList.getFirstItem();
+      return Right(cityNameEntity);
     } on CacheException {
       return Left(CacheFailure());
     }

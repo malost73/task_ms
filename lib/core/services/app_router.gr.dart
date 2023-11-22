@@ -11,6 +11,8 @@
 import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:flutter/foundation.dart' as _i7;
 import 'package:flutter/material.dart' as _i6;
+import 'package:task_ms/features/weather_forecast/domain/entities/city_info_entity.dart'
+    as _i8;
 import 'package:task_ms/features/weather_forecast/presentation/home_page/view/home_page.dart'
     as _i1;
 import 'package:task_ms/features/weather_forecast/presentation/saved_cities_page/view/saved_cities_page.dart'
@@ -159,7 +161,7 @@ class SearchCityRouteArgs {
 class WeatherForecastRoute extends _i5.PageRouteInfo<WeatherForecastRouteArgs> {
   WeatherForecastRoute({
     _i7.Key? key,
-    required InvalidType cityInfo,
+    required _i8.CityInfoEntity cityInfo,
     List<_i5.PageRouteInfo>? children,
   }) : super(
           WeatherForecastRoute.name,
@@ -184,7 +186,7 @@ class WeatherForecastRouteArgs {
 
   final _i7.Key? key;
 
-  final InvalidType cityInfo;
+  final _i8.CityInfoEntity cityInfo;
 
   @override
   String toString() {

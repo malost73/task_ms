@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:task_ms/features/weather_forecast/domain/models/coordinates_entity.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/coordinates_entity.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();
@@ -10,12 +10,10 @@ abstract class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {}
 
-class HomeFirstStartChecking extends HomeState {}
-
 class HomeFirstStart extends HomeState {}
 
 class HomeSavedCityNames extends HomeState {
-  final CoordinatesModel? coordinates;
+  final CoordinatesEntity? coordinates;
 
   const HomeSavedCityNames({required this.coordinates});
 

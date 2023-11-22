@@ -15,8 +15,7 @@ class SearchCityBloc extends Bloc<SearchCityEvent, SearchCityState> {
 
   SearchCityBloc(this.getCityNameList) : super(SearchCityInitial()) {
     on<SearchCityNameListEvent>(_searchCityNameListEvent);
-    // on<TapOnCityEvent>(_tapOnCityEvent);
-    // on<TapOnSearchEvent>(_tapOnSearchEvent);
+    on<SearchCityToInitialEvent>(_searchCityToInitialEvent);
   }
 
   // _tapOnCityEvent(TapOnCityEvent event, Emitter<SavedCitiesState> emit) async {
@@ -35,7 +34,13 @@ class SearchCityBloc extends Bloc<SearchCityEvent, SearchCityState> {
         .call(GetCitiesParams(cityName: event.cityName, fromServer: true));
     emit(listSavedCities.fold(
         (failure) => SearchCityError(message: _mapFailureToMessage(failure)),
-        (listCityNames) => SearchCityLoaded(cityNameListModel: listCityNames)));
+        (listCityNames) =>
+            SearchCityLoaded(cityNameListEntity: listCityNames)));
+  }
+
+  _searchCityToInitialEvent(
+      SearchCityToInitialEvent event, Emitter<SearchCityState> emit) async {
+    emit(SearchCityInitial());
   }
 
   String _mapFailureToMessage(Failure failure) {

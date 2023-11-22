@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:task_ms/features/weather_forecast/domain/models/city_info_entity.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/city_info_entity.dart';
 // import 'package:task_ms/pages/city_page.dart';
 import 'package:task_ms/utilities/constants_colors.dart';
 import 'package:task_ms/utilities/shared_preference.dart';
@@ -9,7 +9,7 @@ import 'package:task_ms/utilities/shared_preference.dart';
 
 @RoutePage()
 class WeatherForecastPage extends StatefulWidget {
-  final CityInfo cityInfo;
+  final CityInfoEntity cityInfo;
 
   // const WeatherForecastPage({super.key, required this.cityInfo});
   const WeatherForecastPage({super.key, required this.cityInfo});

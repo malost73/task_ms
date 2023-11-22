@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:task_ms/features/weather_forecast/domain/models/city_name_list_entity.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_list_entity.dart';
 
 abstract class SearchCityState extends Equatable {
   const SearchCityState();
@@ -8,24 +9,22 @@ abstract class SearchCityState extends Equatable {
   List<Object> get props => [];
 }
 
-class SearchCityInitial extends SearchCityState {}
-
-class SearchCityLoading extends SearchCityState {
-  // final String? cityName;
-  //
-  // const SearchCityLoading({required this.cityName});
+class SearchCityInitial extends SearchCityState {
+  // final String cityName = '';
   //
   // @override
-  // List<Object> get props => [cityName ?? 0];
+  // List<Object> get props => [cityName];
 }
 
-class SearchCityLoaded extends SearchCityState {
-  final CityNameListModel? cityNameListModel;
+class SearchCityLoading extends SearchCityState {}
 
-  const SearchCityLoaded({required this.cityNameListModel});
+class SearchCityLoaded extends SearchCityState {
+  final List<CityNameEntity>? cityNameListEntity;
+
+  const SearchCityLoaded({required this.cityNameListEntity});
 
   @override
-  List<Object> get props => [cityNameListModel ?? 0];
+  List<Object> get props => [cityNameListEntity ?? 0];
 }
 
 class SearchCityError extends SearchCityState {

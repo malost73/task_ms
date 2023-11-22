@@ -1,16 +1,11 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_ms/core/services/app_router.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/local_datasource/city_name_local/city_name_local_impl.dart';
-import 'package:task_ms/features/weather_forecast/data/datasources/local_datasource/realm_database/local_db_city_name.dart';
-import 'package:task_ms/features/weather_forecast/data/datasources/remote_datasource/city_name_list_remote/city_name_list_remote.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/remote_datasource/city_name_list_remote/city_name_list_remote_impl.dart';
 import 'package:task_ms/features/weather_forecast/data/repositories/city_name_repository_impl.dart';
-import 'package:task_ms/features/weather_forecast/data/repositories/weather_forecast_repository_impl.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_city_name_list.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_first_city_name.dart';
-import 'package:task_ms/features/weather_forecast/presentation/home_page/bloc/home_bloc.dart';
 
 void main() {
   runApp(MyApp());

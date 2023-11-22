@@ -1,6 +1,6 @@
 import 'package:realm/realm.dart';
-import 'package:task_ms/features/weather_forecast/data/datasources/local_datasource/models_db/local_city_names_db/local_city_names_db.dart';
-import 'package:task_ms/features/weather_forecast/data/datasources/local_datasource/models_db/city_name_db/city_name_db.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/local_entities/city_name_db/city_name_db.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/local_entities/local_city_names_db/local_city_names_db.dart';
 
 class LocalDatabase {
   final Configuration _config = Configuration.local([

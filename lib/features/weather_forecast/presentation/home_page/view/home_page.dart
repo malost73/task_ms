@@ -12,23 +12,6 @@ import 'package:task_ms/features/weather_forecast/presentation/home_page/bloc/ho
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  //
-  // Future<void> _checkSavedCity() async {
-  //   var cityList = await SharedPreferenceCity().getListCityInfo();
-  //   if (cityList.isEmpty) {
-  //     _navigatorCityPage();
-  //   } else {
-  //     var cityInfo = cityList[0];
-  //     double lat = cityInfo['lat'];
-  //     double lon = cityInfo['lon'];
-  //     String name = cityInfo['name'];
-  //     var saved = await CheckSavedCity()
-  //         .checkSavedCity(Coordinates(lat: lat, lon: lon));
-  //     _navigatorWeatherForecastPage(CityInfo(
-  //         name: name, lat: lat.toString(), lon: lon.toString(), saved: saved));
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeBloc>(
@@ -44,12 +27,15 @@ class HomePage extends StatelessWidget {
           } else if (state is HomeSavedCityNames) {
             context.router.replace(
               WeatherForecastRoute(
-                  cityInfo: CityInfo(
-                      name: 'name',
-                      lat: state.coordinates!.lat.toString(),
-                      lon: state.coordinates!.lon.toString(),
-                      saved: false)),
+                cityInfo: CityInfoEntity(
+                    name: 'name',
+                    lat: state.coordinates!.lat.toString(),
+                    lon: state.coordinates!.lon.toString(),
+                    saved: false),
+              ),
             );
+          } else if (state is HomeError) {
+            return Center(child: Text(state.message));
           }
           return const Center(child: CircularProgressIndicator());
         },

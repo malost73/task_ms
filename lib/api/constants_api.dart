@@ -13,5 +13,7 @@ class ConstantsApi {
   static const String weatherImagesUrl =
       weatherBaseScheme + weatherBaseUrlDomain + weatherImagesPath;
   static const String weatherForecastUrl =
-      weatherBaseUrlDomain + weatherForecastPath;
+      weatherBaseScheme + weatherBaseUrlDomain + weatherForecastPath;
+  static const String cityNameUrl =
+      weatherBaseScheme + weatherBaseUrlDomain + cityNamePath;
 }
