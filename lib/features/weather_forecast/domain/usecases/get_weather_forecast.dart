@@ -7,16 +7,15 @@ import 'package:task_ms/features/weather_forecast/domain/repositories/weather_fo
 // import 'package:injectable/injectable.dart';
 
 // @injectable
-class GetWeatherForecast
-    implements BaseUseCase<WeatherForecastEntity?, CoordinatesEntity> {
+class GetWeatherForecast // implements BaseUseCase<WeatherForecastEntity?, CoordinatesEntity>
+{
   GetWeatherForecast(this.weatherForecastRepository);
 
   final WeatherForecastRepository weatherForecastRepository;
 
-  @override
   Future<Either<Failure, WeatherForecastEntity?>> call(
-      CoordinatesEntity? coordinatesEntity) {
+      {CoordinatesEntity? coordinates}) {
     return weatherForecastRepository.getWeatherForecast(
-        coordinates: coordinatesEntity);
+        coordinates: coordinates);
   }
 }

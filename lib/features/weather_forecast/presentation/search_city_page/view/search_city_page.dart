@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_ms/features/weather_forecast/domain/usecases/check_saved_city.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_city_name_list.dart';
+import 'package:task_ms/features/weather_forecast/domain/usecases/save_city_name.dart';
 import 'package:task_ms/features/weather_forecast/presentation/search_city_page/bloc/search_city_bloc.dart';
 import 'package:task_ms/features/weather_forecast/presentation/search_city_page/bloc/search_city_event.dart';
 import 'package:task_ms/features/weather_forecast/presentation/search_city_page/bloc/search_city_state.dart';
@@ -18,13 +20,14 @@ class SearchCityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final textController = TextEditingController();
     return BlocProvider(
-      create: (context) => SearchCityBloc(context.read<GetCityNameList>()),
+      create: (context) => SearchCityBloc(context.read<GetCityNameList>(),
+          context.read<SaveCityName>()),
       child: BlocBuilder<SearchCityBloc, SearchCityState>(
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
               title: TextField(
-                controller: textController,
+                // controller: textController,
                 autofocus: true,
                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(

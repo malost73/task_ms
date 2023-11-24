@@ -5,6 +5,7 @@ import 'package:task_ms/features/weather_forecast/data/mappers/local_mappers/cit
 import 'package:task_ms/features/weather_forecast/domain/entities/local_entities/city_name_db/city_name_db.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/local_entities/local_city_names_db/local_city_names_db.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/coordinates_entity.dart';
 
 // @Injectable(as: WeatherLocalDataSource)
 class CityNameLocalImpl implements CityNameLocal {
@@ -13,24 +14,33 @@ class CityNameLocalImpl implements CityNameLocal {
   static final LocalDatabase localDatabase = LocalDatabase();
 
   @override
-  Future<void> addItem(CityNameEntity cityNameEntity) async {
-    // final CityNameEntity? weatherForecast =
-    //     weatherForecastDTO?.toDomain();
+  void addItem(CityNameEntity? cityNameEntity) async {
     final CityNameDB cityNameDB = CityNameDB(
       ObjectId(),
-      lat: cityNameEntity.lat,
-      lon: cityNameEntity.lon,
+      lat: cityNameEntity?.lat,
+      lon: cityNameEntity?.lon,
       localNames: LocalCityNamesDB(ObjectId(),
-          ru: cityNameEntity.localNames?.ru, en: cityNameEntity.localNames?.en),
-      country: cityNameEntity.country,
-      state: cityNameEntity.state,
+          ru: cityNameEntity?.localNames?.ru,
+          en: cityNameEntity?.localNames?.en),
+      country: cityNameEntity?.country,
+      state: cityNameEntity?.state,
     );
 
     localDatabase.addItem(cityNameDB);
   }
 
   @override
-  void deleteItem(CityNameDB cityNameDB) {
+  void deleteItem(CityNameEntity? cityNameEntity) {
+    final CityNameDB cityNameDB = CityNameDB(
+      ObjectId(),
+      lat: cityNameEntity?.lat,
+      lon: cityNameEntity?.lon,
+      localNames: LocalCityNamesDB(ObjectId(),
+          ru: cityNameEntity?.localNames?.ru,
+          en: cityNameEntity?.localNames?.en),
+      country: cityNameEntity?.country,
+      state: cityNameEntity?.state,
+    );
     localDatabase.deleteItem(cityNameDB);
   }
 
@@ -51,6 +61,15 @@ class CityNameLocalImpl implements CityNameLocal {
           ?.map((CityNameDB element) => element.toDomain())
           .toList();
       return listCityNameEntity;
+    }
+    return null;
+  }
+
+  @override
+  CityNameEntity? checkSavedItem(CoordinatesEntity coordinates) {
+    final CityNameDB? cityNameDB = localDatabase.checkSaved(coordinates);
+    if (cityNameDB != null) {
+      return cityNameDB.toDomain();
     }
     return null;
   }

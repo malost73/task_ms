@@ -9,12 +9,7 @@ abstract class SearchCityState extends Equatable {
   List<Object> get props => [];
 }
 
-class SearchCityInitial extends SearchCityState {
-  // final String cityName = '';
-  //
-  // @override
-  // List<Object> get props => [cityName];
-}
+class SearchCityInitial extends SearchCityState {}
 
 class SearchCityLoading extends SearchCityState {}
 
@@ -26,6 +21,15 @@ class SearchCityLoaded extends SearchCityState {
   @override
   List<Object> get props => [cityNameListEntity ?? 0];
 }
+
+// class CityNameChecked extends SearchCityState {
+//   final bool? cityNameSaved;
+//
+//   const CityNameChecked({required this.cityNameSaved});
+//
+//   @override
+//   List<Object> get props => [cityNameSaved ?? 0];
+// }
 
 class SearchCityError extends SearchCityState {
   final String message;

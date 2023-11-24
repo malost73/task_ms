@@ -16,7 +16,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   _firstStartCheckingEvent(
       FirstStartCheckingEvent event, Emitter<HomeState> emit) async {
-    final firstCityName = await getFirstCityName.call(NoParams());
+    final firstCityName = await getFirstCityName.call();
     emit(firstCityName
         .fold((failure) => HomeError(message: _mapFailureToMessage(failure)),
             (cityName) {

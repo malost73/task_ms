@@ -9,6 +9,7 @@ import 'package:task_ms/features/weather_forecast/data/mappers/remote_mappers/ci
 import 'package:task_ms/features/weather_forecast/data/mappers/remote_mappers/city_name_mapper.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_list_entity.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/coordinates_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/repositories/city_name_repository.dart';
 
 // @Injectable(as: WeatherForecastRepository)
@@ -51,5 +52,26 @@ class CityNameRepositoryImpl implements CityNameRepository {
     } on CacheException {
       return Left(CacheFailure());
     }
+  }
+
+  @override
+  void saveCityName({CityNameEntity? cityName}) {
+    localCityNameList.addItem(cityName);
+  }
+
+  @override
+  Future<Either<Failure, CityNameEntity?>> checkSavedCityName(
+      {required CoordinatesEntity coordinates}) async {
+    try {
+      final checkSavedCity = localCityNameList.checkSavedItem(coordinates);
+      return Right(checkSavedCity);
+    } on CacheException {
+      return Left(CacheFailure());
+    }
+  }
+
+  @override
+  void deleteCityName({CityNameEntity? cityName}) {
+    localCityNameList.deleteItem(cityName);
   }
 }

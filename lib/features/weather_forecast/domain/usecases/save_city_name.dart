@@ -6,13 +6,14 @@ import 'package:task_ms/features/weather_forecast/domain/repositories/city_name_
 // import 'package:injectable/injectable.dart';
 
 // @injectable
-class GetFirstCityName // implements BaseUseCase<CityNameEntity?, NoParams?>
+class SaveCityName
+    // implements BaseUseCase<void, CityNameEntity>
 {
-  GetFirstCityName(this.cityNameRepository);
+  SaveCityName(this.cityNameRepository);
 
   final CityNameRepository cityNameRepository;
 
-  Future<Either<Failure, CityNameEntity?>> call() {
-    return cityNameRepository.getFirstCityName();
+  void call(CityNameEntity? cityName) {
+    return cityNameRepository.saveCityName(cityName: cityName);
   }
 }
