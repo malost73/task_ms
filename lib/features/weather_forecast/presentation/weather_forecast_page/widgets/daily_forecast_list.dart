@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/weather_forecast_entity.dart';
+import 'package:task_ms/core/constants/constants.dart';
+import 'package:task_ms/core/constants/constants_colors.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/daily_forecast_entity.dart';
 import 'package:task_ms/features/weather_forecast/presentation/weather_forecast_page/widgets/daily_forecast_card.dart';
-import 'package:task_ms/utilities/constants.dart';
-import 'package:task_ms/utilities/constants_colors.dart';
 
 class DailyForecastList extends StatelessWidget {
-  final WeatherForecastEntity weatherForecast;
+  final List<DailyForecastEntity>? dailyForecast;
 
-  const DailyForecastList({Key? key, required this.weatherForecast})
-      : super(key: key);
+  const DailyForecastList({super.key, required this.dailyForecast});
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +28,13 @@ class DailyForecastList extends StatelessWidget {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             separatorBuilder: (context, index) => const SizedBox(height: 8),
-            itemCount: weatherForecast.daily!.length,
+            itemCount: dailyForecast?.length ?? 0,
             itemBuilder: (context, index) => ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Container(
                 padding: const EdgeInsets.all(3),
                 color: ProjectColors.widgetComponent,
-                child: DailyForecastCard(
-                    weatherForecast: weatherForecast, index: index),
+                child: DailyForecastCard(dailyForecast: dailyForecast?[index]),
               ),
             ),
           ),

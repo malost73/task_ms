@@ -1,12 +1,11 @@
 class CityInfoEntity {
   final String name;
-  final String lat;
-  final String lon;
-  final bool saved;
+  final double? lat;
+  final double? lon;
 
-  const CityInfoEntity(
-      {required this.name,
-      required this.lat,
-      required this.lon,
-      required this.saved});
+  const CityInfoEntity({
+    required this.name,
+    required this.lat,
+    required this.lon,
+  });
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:realm/realm.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/local_entities/city_name_db/city_name_db.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/local_entities/local_city_names_db/local_city_names_db.dart';
@@ -30,7 +31,9 @@ class LocalDatabase {
         _realm.add(cityNameDB);
       });
     } on RealmException catch (e) {
-      print(e.message);
+      if (kDebugMode) {
+        print(e.message);
+      }
     }
   }
 
@@ -59,19 +62,21 @@ class LocalDatabase {
           _realm.delete(cityNameModel.first);
         });
       } on RealmException catch (e) {
-        print(e.message);
+        if (kDebugMode) {
+          print(e.message);
+        }
       }
     }
   }
 
-  CityNameDB? checkSaved(CoordinatesEntity coordinates) {
+  bool checkSaved(CoordinatesEntity coordinates) {
     double? lat = coordinates.lat;
     double? lon = coordinates.lon;
     final saved = _realm
         .query<CityNameDB>(r'lat == $0 and lon == $1', [lat, lon]).toList();
     if (saved.isNotEmpty) {
-      return saved.first;
+      return true;
     }
-    return null;
+    return false;
   }
 }

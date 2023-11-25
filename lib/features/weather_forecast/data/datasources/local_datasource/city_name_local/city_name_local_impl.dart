@@ -7,39 +7,41 @@ import 'package:task_ms/features/weather_forecast/domain/entities/local_entities
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/coordinates_entity.dart';
 
-// @Injectable(as: WeatherLocalDataSource)
 class CityNameLocalImpl implements CityNameLocal {
-  // CityNameLocalImpl(this.localDatabase);
-
   static final LocalDatabase localDatabase = LocalDatabase();
 
   @override
   void addItem(CityNameEntity? cityNameEntity) async {
+    if (cityNameEntity != null) {
+      localDatabase.addItem(_conversionItem(cityNameEntity));
+    }
+  }
+
+  _conversionItem(CityNameEntity? cityNameEntity) {
+    final lat = cityNameEntity?.lat?.toStringAsFixed(4);
+    final lon = cityNameEntity?.lon?.toStringAsFixed(4);
     final CityNameDB cityNameDB = CityNameDB(
       ObjectId(),
-      lat: cityNameEntity?.lat,
-      lon: cityNameEntity?.lon,
+      name: cityNameEntity?.name,
+      lat: double.tryParse(lat ?? ''),
+      lon: double.tryParse(lon ?? ''),
       localNames: LocalCityNamesDB(ObjectId(),
           ru: cityNameEntity?.localNames?.ru,
           en: cityNameEntity?.localNames?.en),
       country: cityNameEntity?.country,
       state: cityNameEntity?.state,
     );
-
-    localDatabase.addItem(cityNameDB);
+    return cityNameDB;
   }
 
   @override
-  void deleteItem(CityNameEntity? cityNameEntity) {
+  void deleteItem(CoordinatesEntity? coordinates) {
+    final lat = coordinates?.lat?.toStringAsFixed(4);
+    final lon = coordinates?.lon?.toStringAsFixed(4);
     final CityNameDB cityNameDB = CityNameDB(
       ObjectId(),
-      lat: cityNameEntity?.lat,
-      lon: cityNameEntity?.lon,
-      localNames: LocalCityNamesDB(ObjectId(),
-          ru: cityNameEntity?.localNames?.ru,
-          en: cityNameEntity?.localNames?.en),
-      country: cityNameEntity?.country,
-      state: cityNameEntity?.state,
+      lat: double.tryParse(lat ?? ''),
+      lon: double.tryParse(lon ?? ''),
     );
     localDatabase.deleteItem(cityNameDB);
   }
@@ -66,11 +68,11 @@ class CityNameLocalImpl implements CityNameLocal {
   }
 
   @override
-  CityNameEntity? checkSavedItem(CoordinatesEntity coordinates) {
-    final CityNameDB? cityNameDB = localDatabase.checkSaved(coordinates);
-    if (cityNameDB != null) {
-      return cityNameDB.toDomain();
-    }
-    return null;
+  bool checkSavedItem(CoordinatesEntity coordinates) {
+    final lat = coordinates.lat?.toStringAsFixed(4);
+    final lon = coordinates.lon?.toStringAsFixed(4);
+    final cityNameDB = localDatabase.checkSaved(CoordinatesEntity(
+        lat: double.parse(lat ?? ''), lon: double.parse(lon ?? '')));
+    return cityNameDB;
   }
 }

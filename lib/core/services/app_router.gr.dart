@@ -11,7 +11,7 @@
 import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:flutter/foundation.dart' as _i7;
 import 'package:flutter/material.dart' as _i6;
-import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/coordinates_entity.dart'
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart'
     as _i8;
 import 'package:task_ms/features/weather_forecast/presentation/home_page/view/home_page.dart'
     as _i1;
@@ -59,7 +59,7 @@ abstract class $AppRouter extends _i5.RootStackRouter {
         routeData: routeData,
         child: _i4.WeatherForecastPage(
           key: args.key,
-          coordinates: args.coordinates,
+          cityName: args.cityName,
         ),
       );
     },
@@ -161,13 +161,13 @@ class SearchCityRouteArgs {
 class WeatherForecastRoute extends _i5.PageRouteInfo<WeatherForecastRouteArgs> {
   WeatherForecastRoute({
     _i7.Key? key,
-    required _i8.CoordinatesEntity coordinates,
+    required _i8.CityNameEntity cityName,
     List<_i5.PageRouteInfo>? children,
   }) : super(
           WeatherForecastRoute.name,
           args: WeatherForecastRouteArgs(
             key: key,
-            coordinates: coordinates,
+            cityName: cityName,
           ),
           initialChildren: children,
         );
@@ -181,15 +181,15 @@ class WeatherForecastRoute extends _i5.PageRouteInfo<WeatherForecastRouteArgs> {
 class WeatherForecastRouteArgs {
   const WeatherForecastRouteArgs({
     this.key,
-    required this.coordinates,
+    required this.cityName,
   });
 
   final _i7.Key? key;
 
-  final _i8.CoordinatesEntity coordinates;
+  final _i8.CityNameEntity cityName;
 
   @override
   String toString() {
-    return 'WeatherForecastRouteArgs{key: $key, coordinates: $coordinates}';
+    return 'WeatherForecastRouteArgs{key: $key, cityName: $cityName}';
   }
 }

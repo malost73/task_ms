@@ -6,8 +6,4 @@ class HourlyForecastEntity {
   final int? dt;
   final double? temp;
   final List<WeatherEntity>? weather;
-
-// String getIconUrl() {
-//   return '${ConstantsApi.weatherImagesUrl}${weather![0].icon}.png';
-// }
 }

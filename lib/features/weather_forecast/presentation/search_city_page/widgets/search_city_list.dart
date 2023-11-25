@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_ms/core/services/app_router.gr.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/city_info_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/coordinates_entity.dart';
 import 'package:task_ms/features/weather_forecast/presentation/search_city_page/bloc/search_city_bloc.dart';
@@ -23,7 +24,7 @@ class SearchCityList extends StatelessWidget {
       itemBuilder: (BuildContext context, int index) {
         return Card(
           child: ListTile(
-            onTap: () async {
+            onTap: () {
               if (isFirstStart) {
                 context.read<SearchCityBloc>().add(SaveCityIfFirstStart(
                     cityName: CityNameEntity(
@@ -46,10 +47,13 @@ class SearchCityList extends StatelessWidget {
               if (context.mounted) {
                 context.router.pushAndPopUntil(
                     WeatherForecastRoute(
-                        coordinates: CoordinatesEntity(
-                      lat: cityList[index].lat,
-                      lon: cityList[index].lon,
-                    )),
+                        cityName: CityNameEntity(
+                            name: cityList[index].name,
+                            localNames: cityList[index].localNames,
+                            lat: cityList[index].lat,
+                            lon: cityList[index].lon,
+                            country: cityList[index].country,
+                            state: cityList[index].state)),
                     predicate: (route) => false);
                 // Navigator.pushAndRemoveUntil(context,
                 //     MaterialPageRoute(builder: (context) {

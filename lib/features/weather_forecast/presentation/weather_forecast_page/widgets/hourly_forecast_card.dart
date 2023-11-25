@@ -1,52 +1,43 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/weather_forecast_entity.dart';
+import 'package:task_ms/core/utilities/forecast_util.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/hourly_forecast_entity.dart';
 
 class HourlyForecastCard extends StatelessWidget {
-  final WeatherForecastEntity weatherForecast;
-  final int index;
+  final HourlyForecastEntity? hourlyForecast;
 
-  const HourlyForecastCard(
-      {Key? key, required this.weatherForecast, required this.index})
-      : super(key: key);
+  const HourlyForecastCard({super.key, required this.hourlyForecast});
 
   @override
   Widget build(BuildContext context) {
-    var forecastList = weatherForecast.hourly;
-    DateTime date =
-    DateTime.fromMillisecondsSinceEpoch(forecastList![index].dt! * 1000);
-    var time = '${date.hour}:00';
-    var temp = forecastList[index].temp!.toStringAsFixed(0);
-    // var icon = forecastList[index].getIconUrl();
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Text(
-              time,
+              ForecastUtil.getFormattedTime(hourlyForecast?.dt),
               style: const TextStyle(fontSize: 14, color: Colors.white),
             ),
           ),
-        ),
-        // Image.network(icon, scale: 1.2),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Text(
-                '$temp° ',
-                style: const TextStyle(
-                  fontSize: 18.0,
-                ),
-              ),
-            ],
+          Center(
+            child: Image.network(
+                ForecastUtil.getImageUrl(hourlyForecast?.weather?[0]),
+                scale: 1.3),
           ),
-        ),
-      ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              '${hourlyForecast?.temp?.toStringAsFixed(0)}° ',
+              style: const TextStyle(
+                fontSize: 16.0,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

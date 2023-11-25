@@ -1,14 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:task_ms/features/weather_forecast/domain/usecases/check_saved_city.dart';
+import 'package:task_ms/core/constants/constants.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_city_name_list.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/save_city_name.dart';
 import 'package:task_ms/features/weather_forecast/presentation/search_city_page/bloc/search_city_bloc.dart';
 import 'package:task_ms/features/weather_forecast/presentation/search_city_page/bloc/search_city_event.dart';
 import 'package:task_ms/features/weather_forecast/presentation/search_city_page/bloc/search_city_state.dart';
 import 'package:task_ms/features/weather_forecast/presentation/search_city_page/widgets/search_city_list_builder.dart';
-import 'package:task_ms/utilities/constants.dart';
 
 @RoutePage()
 class SearchCityPage extends StatelessWidget {
@@ -27,7 +26,7 @@ class SearchCityPage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: TextField(
-                // controller: textController,
+                controller: textController,
                 autofocus: true,
                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(

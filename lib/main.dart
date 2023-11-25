@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_ms/core/services/app_router.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/local_datasource/city_name_local/city_name_local_impl.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/remote_datasource/city_name_list_remote/city_name_list_remote_impl.dart';
-import 'package:task_ms/features/weather_forecast/data/datasources/remote_datasource/weather_forecast_remote/weather_forecast_remote.dart';
+import 'package:task_ms/features/weather_forecast/data/datasources/remote_datasource/weather_forecast_remote/weather_forecast_remote_impl.dart';
 import 'package:task_ms/features/weather_forecast/data/repositories/city_name_repository_impl.dart';
 import 'package:task_ms/features/weather_forecast/data/repositories/weather_forecast_repository_impl.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/check_saved_city.dart';
@@ -12,6 +12,7 @@ import 'package:task_ms/features/weather_forecast/domain/usecases/get_city_name_
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_first_city_name.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_weather_forecast.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/save_city_name.dart';
+import 'package:task_ms/features/weather_forecast/presentation/weather_forecast_page/bloc/weather_forecast_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
 
   final AppRouter _appRouter = AppRouter();
   final _weatherForecast = WeatherForecastRepositoryImpl(
-      remoteWeatherForecast: WeatherForecastRemote());
+      remoteWeatherForecast: WeatherForecastRemoteImpl());
   final _cityNameRepository = CityNameRepositoryImpl(
       remoteCityNameList: CityNameListRemoteImpl(),
       localCityNameList: CityNameLocalImpl());
@@ -50,16 +51,23 @@ class MyApp extends StatelessWidget {
           create: (context) => DeleteCityName(_cityNameRepository),
         ),
       ],
-      child: MaterialApp.router(
-        routerConfig: _appRouter.config(),
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          appBarTheme: const AppBarTheme(color: Color(0xFF343434)),
-          scaffoldBackgroundColor: Colors.grey.shade900,
-          colorScheme: const ColorScheme.dark(
-            primary: Color(0xFF2C6996),
+      child: BlocProvider(
+        create: (context) => WeatherForecastBloc(
+            context.read<CheckSavedCity>(),
+            context.read<GetWeatherForecast>(),
+            context.read<SaveCityName>(),
+            context.read<DeleteCityName>()),
+        child: MaterialApp.router(
+          routerConfig: _appRouter.config(),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            appBarTheme: const AppBarTheme(color: Color(0xFF343434)),
+            scaffoldBackgroundColor: Colors.grey.shade900,
+            colorScheme: const ColorScheme.dark(
+              primary: Color(0xFF2C6996),
+            ),
+            // primarySwatch: Colors.blue,
           ),
-          primarySwatch: Colors.blue,
         ),
       ),
     );

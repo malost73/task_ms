@@ -1,57 +1,46 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/weather_forecast_entity.dart';
-import 'package:task_ms/utilities/constants_colors.dart';
-import 'package:task_ms/utilities/forecast_util.dart';
+import 'package:task_ms/core/constants/constants_colors.dart';
+import 'package:task_ms/core/utilities/forecast_util.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/daily_forecast_entity.dart';
 
 class DailyForecastCard extends StatelessWidget {
-  final WeatherForecastEntity weatherForecast;
-  final int index;
+  final DailyForecastEntity? dailyForecast;
 
-  const DailyForecastCard(
-      {Key? key, required this.weatherForecast, required this.index})
-      : super(key: key);
+  const DailyForecastCard({super.key, required this.dailyForecast});
 
   @override
   Widget build(BuildContext context) {
-    var forecastList = weatherForecast.daily;
-    var dayOfWeek = '';
-    DateTime date =
-    DateTime.fromMillisecondsSinceEpoch(forecastList![index].dt! * 1000);
-    var fullDate = ForecastUtil.getFormattedDate(date);
-    dayOfWeek = '${fullDate.split(',')[0]}, ${fullDate.split(',')[1]}';
-    var tempMax = forecastList[index].temp!.max?.toStringAsFixed(0);
-    var tempMin = forecastList[index].temp!.min?.toStringAsFixed(0);
-    // var icon = forecastList[index].getIconUrl();
     return Column(
       children: <Widget>[
         Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  dayOfWeek,
-                  style: const TextStyle(fontSize: 18),
-                ),
+            Expanded(
+              flex: 2,
+              child: Text(
+                ForecastUtil.getFormattedDate(dailyForecast?.dt),
+                style: const TextStyle(fontSize: 18),
               ),
             ),
-            // Image.network(icon, scale: 1.2),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            Flexible(
+              child: Image.network(
+                  ForecastUtil.getImageUrl(dailyForecast?.weather?[0]),
+                  scale: 1.3),
+            ),
+            Expanded(
               child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Text(
-                    '$tempMax° ',
+                    '${dailyForecast?.temp?.max?.toStringAsFixed(0)}° ',
                     style: const TextStyle(
                       fontSize: 18.0,
                     ),
                   ),
                   Text(
-                    '/ $tempMin°',
+                    '/ ${dailyForecast?.temp?.min?.toStringAsFixed(0)}°',
                     style: const TextStyle(
                       fontSize: 18.0,
                       color: ProjectColors.hintText,
@@ -64,5 +53,53 @@ class DailyForecastCard extends StatelessWidget {
         ),
       ],
     );
+    // return Column(
+    //   children: <Widget>[
+    //     Row(
+    //       mainAxisSize: MainAxisSize.max,
+    //       mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //       children: <Widget>[
+    //         Center(
+    //           child: Padding(
+    //             padding: const EdgeInsets.all(8.0),
+    //             child: Text(
+    //               ForecastUtil.getFormattedDate(dailyForecast?.dt),
+    //               style: const TextStyle(fontSize: 18),
+    //             ),
+    //           ),
+    //         ),
+    //         CachedNetworkImage(
+    //           imageUrl: ForecastUtil.getImageUrl(dailyForecast?.weather?[0]),
+    //           placeholder: (context, url) => const CircularProgressIndicator(),
+    //           errorWidget: (context, url, error) => const Icon(Icons.error),
+    //         ),
+    //         // Image.network(ForecastUtil.getImageUrl(dailyForecast?.weather?[0]),
+    //         //     scale: 1.2),
+    //         Padding(
+    //           padding: const EdgeInsets.all(8.0),
+    //           child: Row(
+    //             mainAxisSize: MainAxisSize.max,
+    //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //             children: <Widget>[
+    //               Text(
+    //                 '${dailyForecast?.temp?.max?.toStringAsFixed(0)}° ',
+    //                 style: const TextStyle(
+    //                   fontSize: 18.0,
+    //                 ),
+    //               ),
+    //               Text(
+    //                 '/ ${dailyForecast?.temp?.min?.toStringAsFixed(0)}°',
+    //                 style: const TextStyle(
+    //                   fontSize: 18.0,
+    //                   color: ProjectColors.hintText,
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ],
+    // );
   }
 }

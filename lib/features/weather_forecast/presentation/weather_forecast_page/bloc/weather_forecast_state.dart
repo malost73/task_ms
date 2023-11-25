@@ -4,15 +4,17 @@ import 'package:task_ms/features/weather_forecast/domain/entities/remote_entitie
 
 class WeatherForecastState extends Equatable {
   const WeatherForecastState(
-      {this.weatherForecast, this.cityNameSaved, this.isLoading = false});
+      {this.weatherForecast,
+      this.cityNameSaved = false,
+      this.isLoading = false});
 
   final WeatherForecastEntity? weatherForecast;
-  final CityNameEntity? cityNameSaved;
+  final bool cityNameSaved;
   final bool isLoading;
 
   WeatherForecastState copyWith({
     WeatherForecastEntity? weatherForecast,
-    CityNameEntity? cityNameSaved,
+    bool? cityNameSaved,
     bool isLoading = false,
   }) =>
       WeatherForecastState(
@@ -22,7 +24,7 @@ class WeatherForecastState extends Equatable {
 
   @override
   List<Object> get props =>
-      [weatherForecast ?? 0, cityNameSaved ?? 0, isLoading ?? 0];
+      [weatherForecast ?? 0, cityNameSaved ?? 0, isLoading];
 }
 
 // abstract class WeatherForecastState extends Equatable {

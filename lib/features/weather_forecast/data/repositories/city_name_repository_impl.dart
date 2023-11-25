@@ -1,18 +1,13 @@
-// import 'package:injectable/injectable.dart';
 import 'package:dartz/dartz.dart';
 import 'package:task_ms/core/error/exceprion.dart';
 import 'package:task_ms/core/error/failure.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/local_datasource/city_name_local/city_name_local.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/remote_datasource/city_name_list_remote/city_name_list_remote.dart';
-import 'package:task_ms/features/weather_forecast/data/dtos/city_name_dto/city_name_dto.dart';
-import 'package:task_ms/features/weather_forecast/data/mappers/remote_mappers/city_name_list_mapper.dart';
 import 'package:task_ms/features/weather_forecast/data/mappers/remote_mappers/city_name_mapper.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
-import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_list_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/coordinates_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/repositories/city_name_repository.dart';
 
-// @Injectable(as: WeatherForecastRepository)
 class CityNameRepositoryImpl implements CityNameRepository {
   CityNameRepositoryImpl({
     required this.remoteCityNameList,
@@ -60,7 +55,7 @@ class CityNameRepositoryImpl implements CityNameRepository {
   }
 
   @override
-  Future<Either<Failure, CityNameEntity?>> checkSavedCityName(
+  Future<Either<Failure, bool>> checkSavedCityName(
       {required CoordinatesEntity coordinates}) async {
     try {
       final checkSavedCity = localCityNameList.checkSavedItem(coordinates);
@@ -71,7 +66,7 @@ class CityNameRepositoryImpl implements CityNameRepository {
   }
 
   @override
-  void deleteCityName({CityNameEntity? cityName}) {
-    localCityNameList.deleteItem(cityName);
+  void deleteCityName({CoordinatesEntity? coordinates}) {
+    localCityNameList.deleteItem(coordinates);
   }
 }

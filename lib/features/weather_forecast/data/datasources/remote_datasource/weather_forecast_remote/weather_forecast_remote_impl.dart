@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:task_ms/api/constants_api.dart';
+import 'package:task_ms/core/constants/constants_api.dart';
 import 'package:task_ms/core/error/exceprion.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/remote_datasource/weather_forecast_remote/weather_forecast_remote.dart';
 import 'package:task_ms/features/weather_forecast/data/dtos/weather_forecast_dto/weather_forecast_dto.dart';
@@ -30,9 +30,9 @@ class WeatherForecastRemoteImpl implements WeatherForecastRemote {
     );
 
     if (response.statusCode == ConstantsApi.successResponseCode) {
-      return response.data;
+      return (WeatherForecastDTO.fromJson(response.data));
     } else {
-      throw ServerException();
+      return null;
     }
   }
 }

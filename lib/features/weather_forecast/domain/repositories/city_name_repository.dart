@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:task_ms/core/error/failure.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
-import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_list_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/coordinates_entity.dart';
 
 abstract class CityNameRepository {
@@ -12,8 +11,8 @@ abstract class CityNameRepository {
 
   void saveCityName({CityNameEntity? cityName});
 
-  void deleteCityName({CityNameEntity? cityName});
+  void deleteCityName({CoordinatesEntity? coordinates});
 
-  Future<Either<Failure, CityNameEntity?>> checkSavedCityName(
+  Future<Either<Failure, bool>> checkSavedCityName(
       {required CoordinatesEntity coordinates});
 }

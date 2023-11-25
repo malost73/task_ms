@@ -1,9 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_ms/core/constants/constants.dart';
 import 'package:task_ms/core/error/failure.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_city_name_list.dart';
 import 'package:task_ms/features/weather_forecast/presentation/saved_cities_page/bloc/saved_cities_event.dart';
 import 'package:task_ms/features/weather_forecast/presentation/saved_cities_page/bloc/saved_cities_state.dart';
-import 'package:task_ms/utilities/constants.dart';
 
 class SavedCitiesBloc extends Bloc<SavedCitiesEvent, SavedCitiesState> {
   final GetCityNameList getSavedCityNames;

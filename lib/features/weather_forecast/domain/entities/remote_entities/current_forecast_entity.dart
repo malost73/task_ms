@@ -15,8 +15,4 @@ class CurrentForecastEntity {
   final int? humidity;
   final double? windSpeed;
   final List<WeatherEntity>? weather;
-
-// String getIconUrl() {
-//   return '${ConstantsApi.weatherImagesUrl}${weather![0].icon}.png';
-// }
 }

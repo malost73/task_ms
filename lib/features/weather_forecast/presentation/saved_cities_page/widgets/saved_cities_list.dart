@@ -1,9 +1,12 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_ms/core/constants/constants_colors.dart';
+import 'package:task_ms/core/services/app_router.gr.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
 import 'package:task_ms/features/weather_forecast/presentation/saved_cities_page/bloc/saved_cities_bloc.dart';
 import 'package:task_ms/features/weather_forecast/presentation/saved_cities_page/bloc/saved_cities_event.dart';
 import 'package:task_ms/features/weather_forecast/presentation/saved_cities_page/bloc/saved_cities_state.dart';
-import 'package:task_ms/utilities/constants_colors.dart';
 
 class SavedCitiesList extends StatelessWidget {
   // final Function onTap;
@@ -27,13 +30,13 @@ class SavedCitiesList extends StatelessWidget {
               child: Text('List cities is null'),
             );
           } else {
-            final cityNameList = state.cityNameListEntity;
+            final cityList = state.cityNameListEntity;
             return ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               addAutomaticKeepAlives: true,
               padding: const EdgeInsets.all(15),
-              itemCount: cityNameList?.length ?? 0,
+              itemCount: cityList?.length ?? 0,
               itemBuilder: (context, index) {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(10),
@@ -42,10 +45,20 @@ class SavedCitiesList extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(5),
                       child: ListTile(
-                        // onTap: () => onTap(cityNameList[index]),
+                        onTap: () => context.router.pushAndPopUntil(
+                            WeatherForecastRoute(
+                              cityName: CityNameEntity(
+                                  name: cityList?[index].name,
+                                  localNames: cityList?[index].localNames,
+                                  lat: cityList?[index].lat,
+                                  lon: cityList?[index].lon,
+                                  country: cityList?[index].country,
+                                  state: cityList?[index].state),
+                            ),
+                            predicate: (route) => false),
                         title: Text(
-                          cityNameList?[index].localNames?.ru ??
-                              cityNameList?[index].name ??
+                          cityList?[index].localNames?.ru ??
+                              cityList?[index].name ??
                               '',
                         ),
                       ),

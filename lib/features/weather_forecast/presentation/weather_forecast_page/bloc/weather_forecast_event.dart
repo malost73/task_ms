@@ -18,10 +18,10 @@ class WeatherForecastLoadingEvent extends WeatherForecastEvent {
   List<Object> get props => [coordinates ?? 0];
 }
 
-class CheckSavedCityEvent extends WeatherForecastEvent {
+class GetWeatherEvent extends WeatherForecastEvent {
   final CoordinatesEntity coordinates;
 
-  const CheckSavedCityEvent({required this.coordinates});
+  const GetWeatherEvent({required this.coordinates});
 
   @override
   List<Object> get props => [coordinates];
@@ -37,10 +37,10 @@ class SaveCityNameEvent extends WeatherForecastEvent {
 }
 
 class DeleteCityNameEvent extends WeatherForecastEvent {
-  final CityNameEntity? cityName;
+  final CoordinatesEntity? coordinates;
 
-  const DeleteCityNameEvent({this.cityName});
+  const DeleteCityNameEvent({this.coordinates});
 
   @override
-  List<Object> get props => [cityName ?? 0];
+  List<Object> get props => [coordinates ?? 0];
 }

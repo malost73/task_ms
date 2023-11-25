@@ -2,8 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_ms/core/services/app_router.gr.dart';
-import 'package:task_ms/features/weather_forecast/domain/entities/city_info_entity.dart';
-import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/coordinates_entity.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_first_city_name.dart';
 import 'package:task_ms/features/weather_forecast/presentation/home_page/bloc/home_bloc.dart';
 import 'package:task_ms/features/weather_forecast/presentation/home_page/bloc/home_event.dart';
@@ -26,16 +25,15 @@ class HomePage extends StatelessWidget {
               SavedCitiesRoute(isFirstStart: true),
             );
           } else if (state is HomeSavedCityNames) {
-            // context.router.push(
-            //   // WeatherForecastRoute(coordinates: CoordinatesEntity(lat: null, lon: null))
-            //
-            // );
             context.router.replace(
               WeatherForecastRoute(
-                coordinates: CoordinatesEntity(
-                  lat: state.coordinates?.lat,
-                  lon: state.coordinates?.lon,
-                ),
+                cityName: CityNameEntity(
+                    name: state.cityName?.name,
+                    localNames: state.cityName?.localNames,
+                    lat: state.cityName?.lat,
+                    lon: state.cityName?.lon,
+                    country: state.cityName?.country,
+                    state: state.cityName?.state),
               ),
             );
           } else if (state is HomeError) {

@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/weather_forecast_entity.dart';
+import 'package:task_ms/core/utilities/forecast_util.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/current_forecast_entity.dart';
 
 class CurrentTemperature extends StatelessWidget {
-  final WeatherForecastEntity weatherForecast;
+  final CurrentForecastEntity? currentForecast;
 
-  const CurrentTemperature({Key? key, required this.weatherForecast})
-      : super(key: key);
+  const CurrentTemperature({super.key, required this.currentForecast});
 
   @override
   Widget build(BuildContext context) {
-    var forecastList = weatherForecast.current;
-    // var icon = forecastList?.getIconUrl();
-    var temp = forecastList?.temp?.toStringAsFixed(0);
-    // var description = forecastList!.weather![0].description.toUpperCase();
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -22,22 +18,24 @@ class CurrentTemperature extends StatelessWidget {
             Row(
               children: <Widget>[
                 Text(
-                  '$temp°',
+                  '${currentForecast?.temp?.toStringAsFixed(0)}°',
                   style: const TextStyle(
-                    fontSize: 48.0,
+                    fontSize: 42.0,
                   ),
                 ),
-                // Image.network(icon!, scale: 0.7),
+                Image.network(
+                    ForecastUtil.getImageUrl(currentForecast?.weather?[0]),
+                    scale: 0.8),
               ],
             ),
             Row(
               children: <Widget>[
-                // Text(
-                //   description,
-                //   style: const TextStyle(
-                //     fontSize: 16.0,
-                //   ),
-                // ),
+                Text(
+                  currentForecast?.weather?[0].description?.toUpperCase() ?? '',
+                  style: const TextStyle(
+                    fontSize: 16.0,
+                  ),
+                ),
               ],
             ),
           ],

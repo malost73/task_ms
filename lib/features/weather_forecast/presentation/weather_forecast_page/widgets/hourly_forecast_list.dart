@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/weather_forecast_entity.dart';
+import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/hourly_forecast_entity.dart';
 import 'package:task_ms/features/weather_forecast/presentation/weather_forecast_page/widgets/hourly_forecast_card.dart';
 
 class HourlyForecastList extends StatelessWidget {
-  final WeatherForecastEntity weatherForecast;
+  final List<HourlyForecastEntity>? hourlyForecast;
 
-  const HourlyForecastList({Key? key, required this.weatherForecast})
-      : super(key: key);
+  const HourlyForecastList({super.key, required this.hourlyForecast});
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +19,11 @@ class HourlyForecastList extends StatelessWidget {
           child: ListView.separated(
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
-            separatorBuilder: (context, index) => const SizedBox(height: 8),
+            separatorBuilder: (context, index) => const SizedBox(width: 8),
             itemCount: 25,
             itemBuilder: (context, index) => Container(
               padding: const EdgeInsets.all(3),
-              child: HourlyForecastCard(
-                  weatherForecast: weatherForecast, index: index),
+              child: HourlyForecastCard(hourlyForecast: hourlyForecast?[index]),
             ),
           ),
         ),
