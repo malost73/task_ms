@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_ms/core/constants/constants.dart';
-import 'package:task_ms/core/services/app_router.gr.dart';
+import 'package:task_ms/core/routes/app_router.gr.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_city_name_list.dart';
 import 'package:task_ms/features/weather_forecast/presentation/saved_cities_page/bloc/saved_cities_bloc.dart';
 import 'package:task_ms/features/weather_forecast/presentation/saved_cities_page/widgets/saved_cities_list.dart';
@@ -12,12 +12,6 @@ class SavedCitiesPage extends StatelessWidget {
   final bool isFirstStart;
 
   const SavedCitiesPage({super.key, required this.isFirstStart});
-
-  // void onTapFunction(Map<String, dynamic> cityInfo) async {
-  //   var saved = await CheckSavedCity().checkSavedCity(
-  //       CoordinatesModel(lat: cityInfo['lat'], lon: cityInfo['lon']));
-  //   navigatorWeatherForecastPage(cityInfo, saved);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +29,7 @@ class SavedCitiesPage extends StatelessWidget {
             ),
           ],
         ),
-        body:
-            // ListView(
-            //   children: const [
-
-            const SavedCitiesList(),
-        // onTap: (Map<String, dynamic> info) => onTapFunction(info)),
-        //   ],
-        // ),
+        body: const SavedCitiesList(),
       ),
     );
   }

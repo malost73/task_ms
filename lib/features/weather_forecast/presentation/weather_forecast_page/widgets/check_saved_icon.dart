@@ -22,20 +22,25 @@ class CheckSavedIcon extends StatelessWidget {
       if (state.weatherForecast != null) {
         if (state.cityNameSaved) {
           return IconButton(
-              onPressed: () {
-                context.read<WeatherForecastBloc>().add(DeleteCityNameEvent(
-                    coordinates: CoordinatesEntity(
-                        lat: cityName.lat, lon: cityName.lon)));
-              },
-              icon: const Icon(Icons.star));
+            onPressed: () {
+              context.read<WeatherForecastBloc>().add(
+                    DeleteCityNameEvent(
+                      coordinates: CoordinatesEntity(
+                          lat: cityName.lat, lon: cityName.lon),
+                    ),
+                  );
+            },
+            icon: const Icon(Icons.star),
+          );
         } else {
           return IconButton(
-              onPressed: () {
-                context
-                    .read<WeatherForecastBloc>()
-                    .add(SaveCityNameEvent(cityName: cityName));
-              },
-              icon: const Icon(Icons.star_border));
+            onPressed: () {
+              context
+                  .read<WeatherForecastBloc>()
+                  .add(SaveCityNameEvent(cityName: cityName));
+            },
+            icon: const Icon(Icons.star_border),
+          );
         }
       } else {
         return Container();

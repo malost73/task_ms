@@ -22,7 +22,7 @@ class WeatherForecastView extends StatelessWidget {
                   bottomLeft: Radius.circular(60),
                   bottomRight: Radius.circular(60)),
               child: Container(
-                color: ProjectColors.containerCurrentTemp,
+                color: ConstantsColors.containerCurrent,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[

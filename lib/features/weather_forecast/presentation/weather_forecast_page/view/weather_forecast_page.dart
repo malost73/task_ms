@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_ms/core/constants/constants_colors.dart';
-import 'package:task_ms/core/services/app_router.gr.dart';
+import 'package:task_ms/core/routes/app_router.gr.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/coordinates_entity.dart';
 import 'package:task_ms/features/weather_forecast/presentation/weather_forecast_page/bloc/weather_forecast_bloc.dart';
@@ -45,7 +45,7 @@ class _WeatherForecastPageState extends State<WeatherForecastPage> {
                       widget.cityName.name ??
                       ''),
             ),
-            backgroundColor: ProjectColors.containerCurrentTemp,
+            backgroundColor: ConstantsColors.containerCurrent,
             elevation: 0,
             centerTitle: true,
             automaticallyImplyLeading: false,

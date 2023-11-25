@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:task_ms/core/services/app_router.gr.dart';
+import 'package:task_ms/core/routes/app_router.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends $AppRouter {

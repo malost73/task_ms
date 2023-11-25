@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:task_ms/core/services/app_router.dart';
+import 'package:task_ms/core/constants/constants_colors.dart';
+import 'package:task_ms/core/routes/app_router.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/local_datasource/city_name_local/city_name_local_impl.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/remote_datasource/city_name_list_remote/city_name_list_remote_impl.dart';
 import 'package:task_ms/features/weather_forecast/data/datasources/remote_datasource/weather_forecast_remote/weather_forecast_remote_impl.dart';
@@ -61,10 +62,11 @@ class MyApp extends StatelessWidget {
           routerConfig: _appRouter.config(),
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
-            appBarTheme: const AppBarTheme(color: Color(0xFF343434)),
+            appBarTheme:
+                const AppBarTheme(color: ConstantsColors.widgetComponent),
             scaffoldBackgroundColor: Colors.grey.shade900,
             colorScheme: const ColorScheme.dark(
-              primary: Color(0xFF2C6996),
+              primary: ConstantsColors.primary,
             ),
             // primarySwatch: Colors.blue,
           ),

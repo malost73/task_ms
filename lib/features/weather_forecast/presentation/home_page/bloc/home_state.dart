@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:task_ms/features/weather_forecast/domain/entities/city_info_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
-import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/coordinates_entity.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();

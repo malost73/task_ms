@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_ms/core/constants/constants.dart';
 import 'package:task_ms/features/weather_forecast/presentation/weather_forecast_page/bloc/weather_forecast_bloc.dart';
 
 class WeatherCityName extends StatelessWidget {
@@ -16,10 +17,10 @@ class WeatherCityName extends StatelessWidget {
         child: const CircularProgressIndicator(),
       );
     } else {
-      if (state.weatherForecast != null) {
+      if (state.weatherForecast != null && !(state.isLoading)) {
         return Text(cityName);
       } else {
-        return const Text('Weather is null');
+        return const Text(Constants.noWeather);
       }
     }
   }

@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:task_ms/core/constants/constants.dart';
-import 'package:task_ms/core/error/failure.dart';
+import 'package:task_ms/core/utilities/forecast_util.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_first_city_name.dart';
 import 'package:task_ms/features/weather_forecast/presentation/home_page/bloc/home_event.dart';
@@ -16,28 +15,21 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _firstStartCheckingEvent(
       FirstStartCheckingEvent event, Emitter<HomeState> emit) async {
     final firstCityName = await getFirstCityName.call();
-    emit(firstCityName
-        .fold((failure) => HomeError(message: _mapFailureToMessage(failure)),
-            (cityName) {
-      return cityName != null
-          ? HomeSavedCityNames(
-              cityName: CityNameEntity(
-                  localNames: cityName.localNames,
-                  name: cityName.name,
-                  lat: cityName.lat,
-                  lon: cityName.lon))
-          : HomeFirstStart();
-    }));
-  }
-
-  String _mapFailureToMessage(Failure failure) {
-    switch (failure.runtimeType) {
-      case ServerFailure:
-        return Constants.serverFailureMessage;
-      case CacheFailure:
-        return Constants.serverFailureMessage;
-      default:
-        return 'Unexpected Error';
-    }
+    emit(
+      firstCityName.fold(
+        (failure) =>
+            HomeError(message: ForecastUtil.mapFailureToMessage(failure)),
+        (cityName) {
+          return cityName != null
+              ? HomeSavedCityNames(
+                  cityName: CityNameEntity(
+                      localNames: cityName.localNames,
+                      name: cityName.name,
+                      lat: cityName.lat,
+                      lon: cityName.lon))
+              : HomeFirstStart();
+        },
+      ),
+    );
   }
 }

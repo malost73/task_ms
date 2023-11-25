@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_ms/core/constants/constants.dart';
 import 'package:task_ms/features/weather_forecast/presentation/weather_forecast_page/bloc/weather_forecast_bloc.dart';
 import 'package:task_ms/features/weather_forecast/presentation/weather_forecast_page/widgets/weather_forecast_view.dart';
 
@@ -15,10 +16,10 @@ class WeatherForecastBuilder extends StatelessWidget {
         child: CircularProgressIndicator(),
       );
     } else {
-      if (state.weatherForecast != null) {
+      if (state.weatherForecast != null && !(state.isLoading)) {
         return WeatherForecastView(weatherForecast: state.weatherForecast!);
       } else {
-        return const Text('weather is null');
+        return const Text(Constants.noWeather);
       }
     }
   }

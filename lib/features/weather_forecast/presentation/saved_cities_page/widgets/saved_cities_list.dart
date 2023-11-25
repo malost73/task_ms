@@ -1,17 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_ms/core/constants/constants.dart';
 import 'package:task_ms/core/constants/constants_colors.dart';
-import 'package:task_ms/core/services/app_router.gr.dart';
+import 'package:task_ms/core/routes/app_router.gr.dart';
+import 'package:task_ms/core/utilities/show_toast.dart';
 import 'package:task_ms/features/weather_forecast/domain/entities/remote_entities/city_name_entity.dart';
 import 'package:task_ms/features/weather_forecast/presentation/saved_cities_page/bloc/saved_cities_bloc.dart';
 import 'package:task_ms/features/weather_forecast/presentation/saved_cities_page/bloc/saved_cities_event.dart';
 import 'package:task_ms/features/weather_forecast/presentation/saved_cities_page/bloc/saved_cities_state.dart';
 
 class SavedCitiesList extends StatelessWidget {
-  // final Function onTap;
-
-  // const SavedCitiesList({super.key, required this.onTap});
   const SavedCitiesList({super.key});
 
   @override
@@ -26,8 +25,9 @@ class SavedCitiesList extends StatelessWidget {
           const Center(child: CircularProgressIndicator());
         } else if (state is SavedCitiesLoaded) {
           if (state.cityNameListEntity == null) {
+            ShowToast.showToast(Constants.noCities);
             return const Center(
-              child: Text('List cities is null'),
+              child: Text(Constants.noCities),
             );
           } else {
             final cityList = state.cityNameListEntity;
@@ -41,7 +41,7 @@ class SavedCitiesList extends StatelessWidget {
                 return ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Container(
-                    color: ProjectColors.widgetComponent,
+                    color: ConstantsColors.widgetComponent,
                     child: Padding(
                       padding: const EdgeInsets.all(5),
                       child: ListTile(

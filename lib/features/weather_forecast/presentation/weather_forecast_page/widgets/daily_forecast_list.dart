@@ -33,7 +33,7 @@ class DailyForecastList extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: Container(
                 padding: const EdgeInsets.all(3),
-                color: ProjectColors.widgetComponent,
+                color: ConstantsColors.widgetComponent,
                 child: DailyForecastCard(dailyForecast: dailyForecast?[index]),
               ),
             ),

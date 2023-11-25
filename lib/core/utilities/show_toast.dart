@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class ShowToast {
-  showToast(String msg) {
+  static showToast(String msg) {
     Fluttertoast.cancel();
     return Fluttertoast.showToast(
       msg: msg,
