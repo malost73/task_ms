@@ -5,16 +5,6 @@ import 'package:task_ms/features/weather_forecast/data/datasources/remote_dataso
 import 'package:task_ms/features/weather_forecast/data/dtos/city_name_dto/city_name_dto.dart';
 
 class CityNameListRemoteImpl implements CityNameListRemote {
-  // final Function(String, String) onErrorHandler;
-  // late Dio _dio;
-  //
-  // CityNameListRemoteImpl({required this.onErrorHandler}) {
-  //   _dio = Dio()
-  //     ..interceptors.addAll([
-  //       PrettyDioLogger(requestHeader: true, requestBody: true),
-  //       ErrorInterceptor(onErrorHandler)
-  //     ]);
-  // }
   static final _dio = Dio();
 
   @override
