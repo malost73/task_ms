@@ -25,9 +25,9 @@ class SavedCitiesList extends StatelessWidget {
           const Center(child: CircularProgressIndicator());
         } else if (state is SavedCitiesLoaded) {
           if (state.cityNameListEntity == null) {
-            ShowToast.showToast(Constants.noCities);
+            ShowToast.showToast(Constants.noSavedCities);
             return const Center(
-              child: Text(Constants.noCities),
+              child: Text(Constants.noSavedCities),
             );
           } else {
             final cityList = state.cityNameListEntity;

@@ -21,7 +21,7 @@ class SearchCityListBuilder extends StatelessWidget {
       );
     } else if (state is SearchCityLoaded) {
       if (state.cityNameListEntity == null) {
-        return const Center(child: Text(Constants.noCities));
+        return const Center(child: Text(Constants.noLoadedCities));
       } else {
         return SearchCityList(
             isFirstStart: isFirstStart, cityList: state.cityNameListEntity!);

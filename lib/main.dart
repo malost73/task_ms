@@ -13,6 +13,8 @@ import 'package:task_ms/features/weather_forecast/domain/usecases/get_city_name_
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_first_city_name.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_weather_forecast.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/save_city_name.dart';
+import 'package:task_ms/features/weather_forecast/presentation/error_bloc/error_bloc.dart';
+import 'package:task_ms/features/weather_forecast/presentation/error_bloc/error_event.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,46 +24,52 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
 
   final AppRouter _appRouter = AppRouter();
-  final _weatherForecast = WeatherForecastRepositoryImpl(
-      remoteWeatherForecast: WeatherForecastRemoteImpl());
+
   final _cityNameRepository = CityNameRepositoryImpl(
       remoteCityNameList: CityNameListRemoteImpl(),
       localCityNameList: CityNameLocalImpl());
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider<GetFirstCityName>(
-          create: (context) => GetFirstCityName(_cityNameRepository),
-        ),
-        RepositoryProvider<GetCityNameList>(
-          create: (context) => GetCityNameList(_cityNameRepository),
-        ),
-        RepositoryProvider<SaveCityName>(
-          create: (context) => SaveCityName(_cityNameRepository),
-        ),
-        RepositoryProvider<CheckSavedCity>(
-          create: (context) => CheckSavedCity(_cityNameRepository),
-        ),
-        RepositoryProvider<GetWeatherForecast>(
-          create: (context) => GetWeatherForecast(_weatherForecast),
-        ),
-        RepositoryProvider<DeleteCityName>(
-          create: (context) => DeleteCityName(_cityNameRepository),
-        ),
-      ],
-      child: MaterialApp.router(
-        routerConfig: _appRouter.config(),
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          appBarTheme:
-              const AppBarTheme(color: ConstantsColors.widgetComponent),
-          scaffoldBackgroundColor: Colors.grey.shade900,
-          colorScheme: const ColorScheme.dark(
-            primary: ConstantsColors.primary,
+    return BlocProvider<ErrorBloc>(
+      create: (_) => ErrorBloc(),
+      child: MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider<GetFirstCityName>(
+            create: (context) => GetFirstCityName(_cityNameRepository),
           ),
-          // primarySwatch: Colors.blue,
+          RepositoryProvider<GetCityNameList>(
+            create: (context) => GetCityNameList(_cityNameRepository),
+          ),
+          RepositoryProvider<SaveCityName>(
+            create: (context) => SaveCityName(_cityNameRepository),
+          ),
+          RepositoryProvider<CheckSavedCity>(
+            create: (context) => CheckSavedCity(_cityNameRepository),
+          ),
+          RepositoryProvider<GetWeatherForecast>(
+            create: (context) => GetWeatherForecast(
+                WeatherForecastRepositoryImpl(remoteWeatherForecast:
+                    WeatherForecastRemoteImpl(onErrorHandler: (String message) {
+              context.read<ErrorBloc>().add(ShowToastEvent(message: message));
+            }))),
+          ),
+          RepositoryProvider<DeleteCityName>(
+            create: (context) => DeleteCityName(_cityNameRepository),
+          ),
+        ],
+        child: MaterialApp.router(
+          routerConfig: _appRouter.config(),
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            appBarTheme:
+                const AppBarTheme(color: ConstantsColors.widgetComponent),
+            scaffoldBackgroundColor: Colors.grey.shade900,
+            colorScheme: const ColorScheme.dark(
+              primary: ConstantsColors.primary,
+            ),
+            // primarySwatch: Colors.blue,
+          ),
         ),
       ),
     );

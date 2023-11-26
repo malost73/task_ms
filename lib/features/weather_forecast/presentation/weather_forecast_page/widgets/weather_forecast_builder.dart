@@ -19,7 +19,7 @@ class WeatherForecastBuilder extends StatelessWidget {
       if (state.weatherForecast != null && !(state.isLoading)) {
         return WeatherForecastView(weatherForecast: state.weatherForecast!);
       } else {
-        return const Text(Constants.noWeather);
+        return const Center(child: Text(Constants.noWeather));
       }
     }
   }
