@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:task_ms/core/constants/constants_api.dart';
 import 'package:task_ms/features/weather_forecast/data/dtos/temperature_dto/temperature_dto.dart';
 import 'package:task_ms/features/weather_forecast/data/dtos/weather_dto/weather_dto.dart';
 
@@ -20,8 +19,4 @@ class DailyForecastDTO {
 
   factory DailyForecastDTO.fromJson(Map<String, dynamic> json) =>
       _$DailyForecastDTOFromJson(json);
-
-// String getIconUrl() {
-//   return '${ConstantsApi.weatherImagesUrl}${weather![0].icon}.png';
-// }
 }

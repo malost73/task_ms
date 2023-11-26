@@ -13,7 +13,6 @@ import 'package:task_ms/features/weather_forecast/domain/usecases/get_city_name_
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_first_city_name.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/get_weather_forecast.dart';
 import 'package:task_ms/features/weather_forecast/domain/usecases/save_city_name.dart';
-import 'package:task_ms/features/weather_forecast/presentation/weather_forecast_page/bloc/weather_forecast_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -52,24 +51,17 @@ class MyApp extends StatelessWidget {
           create: (context) => DeleteCityName(_cityNameRepository),
         ),
       ],
-      child: BlocProvider(
-        create: (context) => WeatherForecastBloc(
-            context.read<CheckSavedCity>(),
-            context.read<GetWeatherForecast>(),
-            context.read<SaveCityName>(),
-            context.read<DeleteCityName>()),
-        child: MaterialApp.router(
-          routerConfig: _appRouter.config(),
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            appBarTheme:
-                const AppBarTheme(color: ConstantsColors.widgetComponent),
-            scaffoldBackgroundColor: Colors.grey.shade900,
-            colorScheme: const ColorScheme.dark(
-              primary: ConstantsColors.primary,
-            ),
-            // primarySwatch: Colors.blue,
+      child: MaterialApp.router(
+        routerConfig: _appRouter.config(),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          appBarTheme:
+              const AppBarTheme(color: ConstantsColors.widgetComponent),
+          scaffoldBackgroundColor: Colors.grey.shade900,
+          colorScheme: const ColorScheme.dark(
+            primary: ConstantsColors.primary,
           ),
+          // primarySwatch: Colors.blue,
         ),
       ),
     );

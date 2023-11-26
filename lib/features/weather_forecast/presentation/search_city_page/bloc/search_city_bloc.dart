@@ -21,11 +21,13 @@ class SearchCityBloc extends Bloc<SearchCityEvent, SearchCityState> {
     emit(SearchCityLoading());
     final listSavedCities = await getCityNameList
         .call(GetCitiesParams(cityName: event.cityName, fromServer: true));
-    emit(listSavedCities.fold(
+    emit(
+      listSavedCities.fold(
         (failure) =>
             SearchCityError(message: ForecastUtil.mapFailureToMessage(failure)),
-        (listCityNames) =>
-            SearchCityLoaded(cityNameListEntity: listCityNames)));
+        (listCityNames) => SearchCityLoaded(cityNameListEntity: listCityNames),
+      ),
+    );
   }
 
   _searchCityToInitialEvent(

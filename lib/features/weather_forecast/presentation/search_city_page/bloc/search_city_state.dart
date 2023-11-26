@@ -21,15 +21,6 @@ class SearchCityLoaded extends SearchCityState {
   List<Object> get props => [cityNameListEntity ?? 0];
 }
 
-// class CityNameChecked extends SearchCityState {
-//   final bool? cityNameSaved;
-//
-//   const CityNameChecked({required this.cityNameSaved});
-//
-//   @override
-//   List<Object> get props => [cityNameSaved ?? 0];
-// }
-
 class SearchCityError extends SearchCityState {
   final String message;
 

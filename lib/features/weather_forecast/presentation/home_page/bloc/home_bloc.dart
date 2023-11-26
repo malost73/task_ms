@@ -26,7 +26,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                       localNames: cityName.localNames,
                       name: cityName.name,
                       lat: cityName.lat,
-                      lon: cityName.lon))
+                      lon: cityName.lon),
+                )
               : HomeFirstStart();
         },
       ),

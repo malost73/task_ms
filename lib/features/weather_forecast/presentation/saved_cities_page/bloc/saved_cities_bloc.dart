@@ -16,10 +16,12 @@ class SavedCitiesBloc extends Bloc<SavedCitiesEvent, SavedCitiesState> {
     emit(SavedCitiesLoading());
     final listSavedCities = await getSavedCityNames
         .call(const GetCitiesParams(cityName: '', fromServer: false));
-    emit(listSavedCities.fold(
+    emit(
+      listSavedCities.fold(
         (failure) => SavedCitiesError(
             message: ForecastUtil.mapFailureToMessage(failure)),
-        (listCityNames) =>
-            SavedCitiesLoaded(cityNameListEntity: listCityNames)));
+        (listCityNames) => SavedCitiesLoaded(cityNameListEntity: listCityNames),
+      ),
+    );
   }
 }

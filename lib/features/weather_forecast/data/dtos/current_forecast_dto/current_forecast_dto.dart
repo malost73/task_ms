@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:task_ms/core/constants/constants_api.dart';
 import 'package:task_ms/features/weather_forecast/data/dtos/weather_dto/weather_dto.dart';
 
 part 'current_forecast_dto.g.dart';
@@ -34,8 +33,4 @@ class CurrentForecastDTO {
 
   factory CurrentForecastDTO.fromJson(Map<String, dynamic> json) =>
       _$CurrentForecastDTOFromJson(json);
-
-// String getIconUrl() {
-//   return '${ConstantsApi.weatherImagesUrl}${weather![0].icon}.png';
-// }
 }

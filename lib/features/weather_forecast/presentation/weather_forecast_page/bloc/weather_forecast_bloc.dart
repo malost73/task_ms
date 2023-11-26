@@ -38,10 +38,12 @@ class WeatherForecastBloc
     final saved = await checkSavedCity.call(event.coordinates);
     final weatherForecast =
         await getWeatherForecast.call(coordinates: event.coordinates);
-    emit(state.copyWith(
-      weatherForecast:
-          weatherForecast.fold((failure) => null, (weather) => weather),
-      cityNameSaved: saved.fold((failure) => null, (saved) => saved),
-    ));
+    emit(
+      state.copyWith(
+        weatherForecast:
+            weatherForecast.fold((failure) => null, (weather) => weather),
+        cityNameSaved: saved.fold((failure) => null, (saved) => saved),
+      ),
+    );
   }
 }
