@@ -33,7 +33,6 @@ class SavedCitiesList extends StatelessWidget {
             final cityList = state.cityNameListEntity;
             return ListView.separated(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
               addAutomaticKeepAlives: true,
               padding: const EdgeInsets.all(15),
               itemCount: cityList?.length ?? 0,
